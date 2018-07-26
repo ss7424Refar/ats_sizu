@@ -10,21 +10,15 @@ define('DB_PORT', '3306');
 define('DB_TABLE_PREFIX', '');
 define('DB_CHARSET', 'utf8');
 
-define('JRDB_USER', 'root');
-define('JRDB_PASS', 'root');
-define('JRDB_HOST', '172.30.52.29');
-define('JRDB_NAME', 'jiradb');
-define('PMDB_NAME', 'pm'); // pm db name
-
 // ats image path
 //define('ATS_IMAGES_PATH', 'D:\download');
-define('ATS_IMAGES_PATH', '/mnt/atsShare/Image');
+define('ATS_IMAGES_PATH', '/home/refar');
 
 // ats task path
 define('ATS_FILE_UNDERLINE', '_');
 define('ATS_FILE_suffix', '.csv');
 //define('ATS_PREPARE_PATH', 'D:/wnmp/www/ATS/ats/resource/prepare/');
-define('ATS_PREPARE_PATH', '/mnt/atsShare/TestPCs/');
+define('ATS_PREPARE_PATH', '/home/refar/Phpproject/ats_sizu/resource/prepare/');
 define('ATS_PREPARE_FILE', 'TestPC');
 
 //define('ATS_TMP_TASKS_PATH', 'D:/wnmp/www/ATS/ats/resource/tmp/');

@@ -18,6 +18,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+    <style>
+        /*.select2-results__option[aria-selected=true]{*/
+            /*display:none;*/
+        /*}*/
+
+    </style>
     <!--PACE-->
     <link rel="stylesheet" href="../plugins/pace/pace.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -45,438 +51,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet" href="../dist/css/googleFont.css">
 
-    <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 3 -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--PACE-->
-    <script src="../plugins/pace/pace.js"></script>
-    <!-- Select2 -->
-    <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
-    <!-- iCheck 1.0.1 -->
-    <script src="../plugins/iCheck/icheck.min.js"></script>
-    <!--    bootstrapValidator-->
-    <script src="../plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
-    <!--    toastr-->
-    <script src="../plugins/CodeSeven-toastr/build/toastr.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../dist/js/adminlte.min.js"></script>
-
-    <script>
-        $(function () {
-
-            // ----------------------- dataInit -----------------------
-            testImage = $("select[name='testImage']");
-            testMachine = $("select[name='testMachine']");
-            addMachine = $("select[name='testMachine']:eq(0)");
-            addTestImage = $("select[name='testImage']:eq(1)");
-
-            pDmiInfo = $('div[data-topic="pDmiInfo"]');
-            pDmiInfo_product = $('div[data-topic="pDmiInfo"] p:eq(0)');
-            pDmiInfo_sn = $('div[data-topic="pDmiInfo"] p:eq(1)');
-            pDmiInfo_pn = $('div[data-topic="pDmiInfo"] p:eq(2)');
-            pDmiInfo_oem = $('div[data-topic="pDmiInfo"] p:eq(3)');
-            pDmiInfo_sys = $('div[data-topic="pDmiInfo"] p:eq(4)');
-            pDmiInfo_lanIp = $('div[data-topic="pDmiInfo"] p:eq(5)');
-            pDmiInfo_shelfId = $('div[data-topic="pDmiInfo"] p:eq(6)');
-
-            inputDmiInfo = $('div[data-topic="inputDmiInfo"]');
-            inputDmiInfo_lanIp = $('div[data-topic="inputDmiInfo"] p:eq(0)');
-            inputDmiInfo_shelfId = $('div[data-topic="inputDmiInfo"] p:eq(1)');
-
-            addCK = $('input[name="customer"]');
-            addDefaultCK = $('input[name="customer"]:eq(0)');
-            addCustomerCK = $('input[name="customer"]:eq(1)');
-            // ----------------------- dataInit -----------------------
-
-
-            select2Init();
-
-            iCheckInit();
-
-            addFormValidatorInit();
-
-            // init form
-            addDefaultCK.iCheck('check');
-            addMachine.val(null).trigger('change');
-            addTestImage.val(null).trigger('change');
-            // pDmiInfo.css('display', 'none');
-            // inputDmiInfo.css('display', 'none');
-            $('#addTaskForm').data('bootstrapValidator').destroy();
-            addFormValidatorInit();
-
-        });
-
-
-        function  select2Init() {
-            testImage.select2({
-                    width: "100%",
-                    ajax: {
-                        // url: 'demo/fileLoop.php',
-                        url: "function/atsController.php?do=getImageName4Select2",
-                        dataType: 'json',
-                        delay: 250,
-                        data: function (params) {
-                            return {
-                                q: params.term // search term
-                            };
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: data
-                            };
-                        },
-                        cache: false
-                    },
-                    placeholder: 'please select',
-                    allowClear: true
-                }
-            );
-
-            testMachine.select2({
-                width: "100%",
-                ajax: {
-                    // url: 'function/readAddData.php',
-                    url: "function/atsController.php?do=readMachine4Select2",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: false
-                },
-                placeholder:'please select',
-                allowClear:true
-            });
-
-
-            addMachine.on("select2:select",function(e){
-                console.log(addMachine.val());
-                var addMachineVal = addMachine.val();
-                var machineId = addMachine.select2('data')[0].text;
-                if (null != machineId) {
-                    machineId = machineId.replace(addMachineVal, '');
-                    machineId = machineId.substring(1, machineId.length - 1);
-                }
-                console.log(machineId);
-                // var data = e.params.data;
-                // console.log(data.text);
-                if (addDefaultCK.prop('checked')){
-                    $.ajax({
-                        type: 'get',
-                        // url: 'function/readDmiInfoFromCSV.php',
-                        url: "function/atsController.php?do=readTestPCInfo",
-                        data: {machineId: machineId},
-                        dataType: 'json',
-                        success: function(result){
-                            pDmiInfo.css('display', 'block');
-                            pDmiInfo_product.html(result[0].product);
-                            pDmiInfo_sn.html(result[0].sn);
-                            pDmiInfo_pn.html(result[0].pn);
-                            pDmiInfo_oem.html(result[0].oem);
-                            pDmiInfo_sys.html(result[0].sys);
-                            pDmiInfo_lanIp.html(result[0].lanIp);
-                            pDmiInfo_shelfId.html(result[0].shelfId);
-                        },
-                        error: function () {
-                            toastr.error("Dmi Read Failed");
-                            $('#addModal').modal('hide');
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        type: 'get',
-                        // url: 'function/readDmiInfoFromCSV.php',
-                        url: "function/atsController.php?do=readTestPCInfo",
-                        data: {machineId: machineId},
-                        dataType: 'json',
-                        success: function(result){
-                            inputDmiInfo_lanIp.html(result[0].lanIp);
-                            inputDmiInfo_shelfId.html(result[0].shelfId);
-                        },
-                        error: function () {
-                            toastr.error("Dmi Read Failed");
-                            $('#addModal').modal('hide');
-                        }
-                    });
-
-
-                }
-            }).on("select2:clear", function (e) {
-                // alert(4);
-                if (addDefaultCK.prop('checked')){
-                    pDmiInfo.css('display', 'none').find('p').html('');
-                } else {
-                    inputDmiInfo.find('p').html('N/A');
-                }
-            });
-
-        };
-
-        function iCheckInit() {
-            $('input[name=customer]').iCheck({
-                radioClass: 'iradio_square-blue',
-                increaseArea : '20%'
-            }).on('ifChecked', function () {
-                // alert($(this).val());
-                var vadio = $(this).val();
-                var machineId = addMachine.val();
-
-                $('#addTaskForm').data('bootstrapValidator').destroy();
-
-                if ("customer" === vadio) {
-                    // alert(1);
-                    pDmiInfo.css('display', 'none');
-                    inputDmiInfo.css('display', 'block');
-
-                    addMachine.val(null).trigger('change');
-                    inputDmiInfo.find('input').val('');
-                    inputDmiInfo.find('p').html('N/A');
-                } else if("default" === vadio) {
-                    // alert(2);
-                    addMachine.val(null).trigger('change');
-                    inputDmiInfo.css('display', 'none');
-                    pDmiInfo.css('display', 'none');
-                }
-                addFormValidatorInit();
-
-
-            });
-        }
-
-
-        function addFormValidatorInit(){
-            $('#addTaskForm').bootstrapValidator({
-                message: 'This value is not valid',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    testMachine: {
-                        message: 'the testMachine is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The testMachine is required and can\'t be empty'
-                            }
-                        }
-                    },
-                    testImage: {
-                        message: 'the testImage is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The testImage is required and can\'t be empty'
-                            }
-                        }
-                    },
-                    addProduct: {
-                        message: 'the Product Name is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The product name is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 5,
-                                max: 30,
-                                message: 'The product name must be more than 5 and less than 20 characters long'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
-                                message: 'The product name can only consist of special character like ~!@#$%^&*-/, , number, en.'
-                            }
-
-                        }
-                    },
-                    addSN: {
-                        message: 'the sn is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The sn is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 5,
-                                max: 20,
-                                message: 'The sn must be more than 5 and less than 20 characters long'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
-                                message: 'The sn can only consist of special character like ~!@#$%^&*-/, , number, en.'
-                            }
-
-                        }
-                    },
-                    addPN: {
-                        message: 'the pn is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The pn is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 5,
-                                max: 30,
-                                message: 'The pn must be more than 5 and less than 20 characters long'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
-                                message: 'The pn can only consist of special character like ~!@#$%^&*-/, , number, en.'
-                            }
-
-                        }
-                    },
-                    addOem: {
-                        // enabled: false,
-                        message: 'the oem is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The oem is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 5,
-                                max: 100,
-                                message: 'The oem must be more than 5 and less than 100 characters long'
-                            },
-                            regexp: {
-                                // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
-                                regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
-                                message: 'The oem can only consist of special character like ~!@#$%^&*-/, , number, en.'
-                            }
-
-                        }
-                    },
-                    addSystem: {
-                        // enabled: false,
-                        message: 'the sytsem config is not valid',
-                        validators: {
-                            notEmpty: {
-                                message: 'The sytsem config is required and can\'t be empty'
-                            },
-                            stringLength: {
-                                min: 1,
-                                max: 20,
-                                message: 'The sytsem config must be more than 5 and less than 100 characters long'
-                            },
-                            regexp: {
-                                // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
-                                regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
-                                message: 'The sytsem config can only consist of special character like ~!@#$%^&*-/, , number, en.'
-                            }
-
-                        }
-                    }
-                }
-
-            }).on('success.form.bv', function (e) {
-                // Prevent form submission
-                e.preventDefault();
-
-                // Get the form instance
-                var $form = $(e.target);
-
-                // Get the BootstrapValidator instance
-                var bv = $form.data('bootstrapValidator');
-
-                var testMachine = addMachine.select2('data')[0].text;
-                var testItem = $('select[name="testItem"] option:selected').text();
-                var testImage = addTestImage.select2('data')[0].text;
-                // var machineId = addMachine.select2('val');
-
-                var addMachineVal = addMachine.val();
-                var machineId = addMachine.select2('data')[0].text;
-                if (null != machineId) {
-                    machineId = machineId.replace(addMachineVal, '');
-                    machineId = machineId.substring(1, machineId.length - 1);
-                }
-
-                // console.log(machineId);
-                if (addDefaultCK.prop('checked')){
-                    // Use Ajax to submit form data
-                    $.ajax({
-                        type : "get",
-                        url: "function/atsController.php?do=addTask",
-                        data: {
-                            testMachine: testMachine,
-                            machineId: machineId,
-                            testItem: testItem,
-                            testImage: testImage,
-                            customer: 'default',
-                            addProduct: pDmiInfo.find('p:eq(0)').text(),
-                            addSN: pDmiInfo.find('p:eq(1)').text(),
-                            addPN: pDmiInfo.find('p:eq(2)').text(),
-                            addOem:pDmiInfo.find('p:eq(3)').text(),
-                            addSystem: pDmiInfo.find('p:eq(4)').text(),
-                            lanIp: pDmiInfo.find('p:eq(5)').text(),
-                            shelf: pDmiInfo.find('p:eq(6)').text(),
-                        },
-                        success : function (result) {
-                            console.log(result);
-                            if (result == "success") {
-                                toastr.success('add success!');
-
-                            } else {
-                                toastr.error('add fail! try again ');
-                            }
-                        },
-                        error : function(xhr,status,error){
-                            toastr.error(xhr.status + ' add fail! ');
-                        },
-                        complete : function () {
-                            $('#addModal').modal('hide');
-                            $('#taskTable').bootstrapTable('selectPage', 1);
-                        }
-                    });
-
-                } else {
-                    // Use Ajax to submit form data
-                    $.ajax({
-                        type : "get",
-                        url: "function/atsController.php?do=addTask",
-                        data: {
-                            testMachine: testMachine,
-                            machineId: machineId,
-                            testItem: testItem,
-                            testImage: testImage,
-                            customer: 'customer',
-                            addProduct: inputDmiInfo.find('input:eq(0)').val(),
-                            addSN: inputDmiInfo.find('input:eq(1)').val(),
-                            addPN: inputDmiInfo.find('input:eq(2)').val(),
-                            addOem: inputDmiInfo.find('input:eq(3)').val(),
-                            addSystem: inputDmiInfo.find('input:eq(4)').val(),
-                            lanIp: inputDmiInfo.find('p:eq(0)').text(),
-                            shelf: inputDmiInfo.find('p:eq(1)').text(),
-                        },
-                        success : function (result) {
-                            console.log(result);
-                            if (result == "success") {
-                                toastr.success('add success!');
-
-                            } else {
-                                toastr.error('add fail! try again ');
-                            }
-                        },
-                        error : function(xhr,status,error){
-                            toastr.error(xhr.status + ' add fail! ');
-                        },
-                        complete : function () {
-                            $('#addModal').modal('hide');
-                            $('#taskTable').bootstrapTable('selectPage', 1);
-                        }
-                    });
-
-                }
-            });
-
-        };
-    </script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -498,8 +72,8 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<!--<body class="hold-transition skin-blue sidebar-mini">-->
 <body class="hold-transition skin-blue sidebar-mini">
+<!--<body class="hold-transition skin-blue layout-boxed">-->
 <div class="wrapper">
     <!-- Main Header -->
     <?php include 'header.php';?>
@@ -526,7 +100,7 @@ desired effect
                 </li>
                 <li class="header">INFO</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li><a href="#"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
+                <li><a href="taskManager.php"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
                 <li class="header">SETTING</li>
 
             </ul>
@@ -569,12 +143,10 @@ desired effect
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Test Image</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="testImage">
-                                        </select>
+                                        <select class="form-control" name="testImage"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-
                                     <label class="col-sm-3 control-label">TestDMIReset</label>
                                     <div class="col-sm-9" style="padding-top: 7px;padding-left: 14px">
                                         <label style="margin-right: 19px">
@@ -585,7 +157,7 @@ desired effect
                                         </label>
                                     </div>
                                 </div>
-                                <div style="display:none;" data-topic="pDmiInfo">
+                                <div style="display:none" data-topic="pDmiInfo">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Product Name</label>
                                         <div class="col-sm-9">
@@ -700,5 +272,441 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--PACE-->
+<script src="../plugins/pace/pace.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/select2.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<!--    bootstrapValidator-->
+<script src="../plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+<!--    toastr-->
+<script src="../plugins/CodeSeven-toastr/build/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
+
+<script>
+    $(function () {
+
+        // ----------------------- dataInit -----------------------
+        testImage = $("select[name='testImage']");
+        testMachine = $("select[name='testMachine']");
+
+        pDmiInfo = $('div[data-topic="pDmiInfo"]');
+        pDmiInfo_product = $('div[data-topic="pDmiInfo"] p:eq(0)');
+        pDmiInfo_sn = $('div[data-topic="pDmiInfo"] p:eq(1)');
+        pDmiInfo_pn = $('div[data-topic="pDmiInfo"] p:eq(2)');
+        pDmiInfo_oem = $('div[data-topic="pDmiInfo"] p:eq(3)');
+        pDmiInfo_sys = $('div[data-topic="pDmiInfo"] p:eq(4)');
+        pDmiInfo_lanIp = $('div[data-topic="pDmiInfo"] p:eq(5)');
+        pDmiInfo_shelfId = $('div[data-topic="pDmiInfo"] p:eq(6)');
+
+        inputDmiInfo = $('div[data-topic="inputDmiInfo"]');
+        inputDmiInfo_lanIp = $('div[data-topic="inputDmiInfo"] p:eq(0)');
+        inputDmiInfo_shelfId = $('div[data-topic="inputDmiInfo"] p:eq(1)');
+
+        addCK = $('input[name="customer"]');
+        addDefaultCK = $('input[name="customer"]:eq(0)');
+        addCustomerCK = $('input[name="customer"]:eq(1)');
+        // ----------------------- dataInit -----------------------
+
+        toastrInit();
+
+        select2Init();
+
+        iCheckInit();
+
+        addFormValidatorInit();
+
+        // init form
+        addDefaultCK.iCheck('check');
+        testMachine.val(null).trigger('change');
+        testImage.val(null).trigger('change');
+        // pDmiInfo.css('display', 'none');
+        // inputDmiInfo.css('display', 'none');
+        $('#addTaskForm').data('bootstrapValidator').destroy();
+        addFormValidatorInit();
+
+    });
+
+    function  toastrInit() {
+
+        // toastr
+        toastr.options.positionClass = 'toast-top-center';
+        toastr.options.closeButton = true;
+        // css
+        // toastr.options.positionClass = 'toast-center-center';
+
+        toastr.options.timeOut = 2000; // How long the toast will display without user interaction
+        toastr.options.extendedTimeOut = 2000; // How long the toast will display after a user hovers over it
+
+        // toastr.options.progressBar = true;
+    };
+
+    function  select2Init() {
+        testImage.select2({
+                width: "100%",
+                ajax: {
+                    url: "../functions/atsController.php?do=getImageName4Select2",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: false
+                },
+                placeholder: 'Please Select',
+                allowClear: true
+            }
+        );
+
+        testMachine.select2({
+            width: "100%",
+            ajax: {
+                // url: 'function/readAddData.php',
+                url: "../functions/atsController.php?do=readMachine4Select2",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term // search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: false
+            },
+            placeholder:'Please Select',
+            allowClear:true
+        });
+
+
+        testMachine.on("select2:select",function(e){
+            console.log(testMachine.val());
+            var testMachineVal = testMachine.val();
+            var machineId = testMachine.select2('data')[0].text;
+            if (null != machineId) {
+                machineId = machineId.replace(testMachineVal, '');
+                machineId = machineId.substring(1, machineId.length - 1);
+            }
+            console.log(machineId);
+            // var data = e.params.data;
+            // console.log(data.text);
+            if (addDefaultCK.prop('checked')){
+                $.ajax({
+                    type: 'get',
+                    // url: 'function/readDmiInfoFromCSV.php',
+                    url: "../functions/atsController.php?do=readTestPCInfo",
+                    data: {machineId: machineId},
+                    dataType: 'json',
+                    success: function(result){
+                        pDmiInfo.css('display', 'block');
+                        pDmiInfo_product.html(result[0].product);
+                        pDmiInfo_sn.html(result[0].sn);
+                        pDmiInfo_pn.html(result[0].pn);
+                        pDmiInfo_oem.html(result[0].oem);
+                        pDmiInfo_sys.html(result[0].sys);
+                        pDmiInfo_lanIp.html(result[0].lanIp);
+                        pDmiInfo_shelfId.html(result[0].shelfId);
+                    },
+                    error: function () {
+                        toastr.error("Dmi Read Failed");
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'get',
+                    url: "../functions/atsController.php?do=readTestPCInfo",
+                    data: {machineId: machineId},
+                    dataType: 'json',
+                    success: function(result){
+                        inputDmiInfo_lanIp.html(result[0].lanIp);
+                        inputDmiInfo_shelfId.html(result[0].shelfId);
+                    },
+                    error: function () {
+                        toastr.error("Dmi Read Failed");
+                    }
+                });
+
+
+            }
+        });
+        testMachine.on("select2:clear", function (e) {
+            if (addDefaultCK.prop('checked')){
+                pDmiInfo.css('display', 'none').find('p').html('');
+            } else {
+                inputDmiInfo.find('p').html('N/A');
+            }
+        });
+
+    };
+
+    function iCheckInit() {
+        $('input[name=customer]').iCheck({
+            radioClass: 'iradio_square-blue',
+            increaseArea : '20%'
+        }).on('ifChecked', function () {
+            // alert($(this).val());
+            var vadio = $(this).val();
+            var machineId = testMachine.val();
+
+            $('#addTaskForm').data('bootstrapValidator').destroy();
+
+            if ("customer" === vadio) {
+                // alert(1);
+                pDmiInfo.css('display', 'none');
+                inputDmiInfo.css('display', 'block');
+
+                testMachine.val(null).trigger('change');
+                inputDmiInfo.find('input').val('');
+                inputDmiInfo.find('p').html('N/A');
+            } else if("default" === vadio) {
+                // alert(2);
+                testMachine.val(null).trigger('change');
+                inputDmiInfo.css('display', 'none');
+                pDmiInfo.css('display', 'none');
+            }
+            addFormValidatorInit();
+        });
+    }
+
+
+    function addFormValidatorInit(){
+        $('#addTaskForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                testMachine: {
+                    message: 'the testMachine is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The testMachine is required and can\'t be empty'
+                        }
+                    }
+                },
+                testImage: {
+                    message: 'the testImage is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The testImage is required and can\'t be empty'
+                        }
+                    }
+                },
+                addProduct: {
+                    message: 'the Product Name is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The product name is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: 'The product name must be more than 5 and less than 20 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The product name can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                addSN: {
+                    message: 'the sn is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The sn is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 20,
+                            message: 'The sn must be more than 5 and less than 20 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The sn can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                addPN: {
+                    message: 'the pn is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The pn is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: 'The pn must be more than 5 and less than 20 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The pn can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                addOem: {
+                    // enabled: false,
+                    message: 'the oem is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The oem is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 100,
+                            message: 'The oem must be more than 5 and less than 100 characters long'
+                        },
+                        regexp: {
+                            // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The oem can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                addSystem: {
+                    // enabled: false,
+                    message: 'the sytsem config is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The sytsem config is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: 'The sytsem config must be more than 5 and less than 100 characters long'
+                        },
+                        regexp: {
+                            // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The sytsem config can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                }
+            }
+
+        }).on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            var addMachine = testMachine.select2('data')[0].text;
+            var testItem = "JumpStart";
+            var addImage = testImage.select2('data')[0].text;
+            console.log(addImage + ',' + addMachine);
+            var testMachineVal = testMachine.val();
+            var machineId = addMachine;
+            if (null != machineId) {
+                machineId = machineId.replace(testMachineVal, '');
+                machineId = machineId.substring(1, machineId.length - 1);
+            }
+
+            if (addDefaultCK.prop('checked')){
+                // Use Ajax to submit form data
+                $.ajax({
+                    type : "get",
+                    url: "../functions/atsController.php?do=addTask",
+                    data: {
+                        testMachine: addMachine,
+                        machineId: machineId,
+                        testItem: testItem,
+                        testImage: addImage,
+                        customer: 'default',
+                        addProduct: pDmiInfo.find('p:eq(0)').text(),
+                        addSN: pDmiInfo.find('p:eq(1)').text(),
+                        addPN: pDmiInfo.find('p:eq(2)').text(),
+                        addOem:pDmiInfo.find('p:eq(3)').text(),
+                        addSystem: pDmiInfo.find('p:eq(4)').text(),
+                        lanIp: pDmiInfo.find('p:eq(5)').text(),
+                        shelf: pDmiInfo.find('p:eq(6)').text(),
+                    },
+                    success : function (result) {
+                        console.log(result);
+                        if (result == "success") {
+                            toastr.success('add success!');
+
+                        } else {
+                            toastr.error('add fail! try again ');
+                        }
+                    },
+                    error : function(xhr,status,error){
+                        toastr.error(xhr.status + ' add fail! ');
+                    },
+                    complete : function () {
+                        setTimeout("window.location.href=\"taskManager.php\";",3000);
+
+                    }
+                });
+
+            } else {
+                // Use Ajax to submit form data
+                $.ajax({
+                    type : "get",
+                    url: "../functions/atsController.php?do=addTask",
+                    data: {
+                        testMachine: addMachine,
+                        machineId: machineId,
+                        testItem: testItem,
+                        testImage: addImage,
+                        customer: 'customer',
+                        addProduct: inputDmiInfo.find('input:eq(0)').val(),
+                        addSN: inputDmiInfo.find('input:eq(1)').val(),
+                        addPN: inputDmiInfo.find('input:eq(2)').val(),
+                        addOem: inputDmiInfo.find('input:eq(3)').val(),
+                        addSystem: inputDmiInfo.find('input:eq(4)').val(),
+                        lanIp: inputDmiInfo.find('p:eq(0)').text(),
+                        shelf: inputDmiInfo.find('p:eq(1)').text(),
+                    },
+                    success : function (result) {
+                        console.log(result);
+                        if (result == "success") {
+                            toastr.success('add success!');
+
+                        } else {
+                            toastr.error('add fail! try again ');
+                        }
+                    },
+                    error : function(xhr,status,error){
+                        toastr.error(xhr.status + ' add fail! ');
+                    },
+                    complete : function () {
+                        setTimeout("window.location.href=\"taskManager.php\";",3000);
+
+                    }
+                });
+
+            }
+        });
+
+    };
+</script>
 </body>
 </html>

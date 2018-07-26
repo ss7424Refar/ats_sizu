@@ -85,7 +85,7 @@ desired effect
         </li>
           <li class="header">INFO</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
+        <li><a href="taskManager.php"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
           <li class="header">SETTING</li>
 
       </ul>
