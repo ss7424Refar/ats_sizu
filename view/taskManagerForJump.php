@@ -26,6 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="../plugins/bootstrap-table-develop/src/extensions/page-jumpto/bootstrap-table-jumpto.css">
     <!--    toastr-->
     <link href="../plugins/CodeSeven-toastr/build/toastr.min.css" rel="stylesheet" />
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../plugins/iCheck/all.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -86,13 +88,24 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
+                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
                     </ul>
                 </li>
                 <li class="header">INFO</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="taskManager.php"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
-                <li class="header">SETTING</li>
+                <li class="treeview active" >
+                    <a href="#"><i class="fa fa-link"></i> <span>Task Manager</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Jump Start</a></li>
+                    </ul>
+                </li>
+                <li class="header">CHECK OUT</li>
+                <li class="treeview" >
+                    <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
+                </li>
 
             </ul>
             <!-- /.sidebar-menu -->
@@ -109,8 +122,9 @@ desired effect
                 <small>For Auto Tool</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="taskManager.php"><i class="fa fa-dashboard"></i> Task Manager</a></li>
-<!--                <li class="active">Jump Start</li>-->
+                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li>Task Manager</li>
+                <li class="active">Jump Start</li>
             </ol>
         </section>
 
@@ -221,14 +235,15 @@ desired effect
 <!--    bootstrap dataTables-->
 <script type="text/javascript" src="../plugins/bootstrap-table-develop/dist/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="../plugins/bootstrap-table-develop/dist/locale/bootstrap-table-en-US.min.js"></script>
-
 <!--    bootstrap dataTables extensions-->
 <link rel="stylesheet" href="../plugins/bootstrap-table-develop/src/extensions/page-jumpto/bootstrap-table-jumpto.css">
 <script src="../plugins/bootstrap-table-develop/src/extensions/page-jumpto/bootstrap-table-jumpto.js"></script>
-
 <!--    toastr-->
 <script src="../plugins/CodeSeven-toastr/build/toastr.min.js"></script>
-
+<!-- iCheck 1.0.1 -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<!-- bootbox4.4 -->
+<script src="../plugins/bootbox4.4/bootbox.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 
@@ -240,11 +255,15 @@ desired effect
         //Task
         taskButton();
 
+
         // table
         tableInit(queryParams);
 
-        // assign
+         // assign
         assignButtonInit();
+
+        // delete
+        deleteTaskButtonInit();
 
     });
 
@@ -364,9 +383,9 @@ desired effect
                 title: 'Test Result',
                 formatter: function(value, row, index){
                     if("fail"==value){
-                        return '<a target="_blank" href=file://' + row.TestResultPath  + '><i class="fas fa-times fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a target="_blank" href=file://' + row.TestResultPath  + '><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
                     } else if("pass"==value){
-                        return '<a target="_blank" href=file://' + row.TestResultPath + '><i class="fas fa-check fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a target="_blank" href=file://' + row.TestResultPath + '><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
                     }
                     return "N/A";
                     // return "<a href=" +  + "></a>";
@@ -465,7 +484,7 @@ desired effect
                             type: "get",
                             url: "../functions/atsController.php?do=assignAtsInfoByMultiTaskId",
                             data: {multiTask: ckArr},
-                            // dataType: 'json',
+                            dataType: 'json',
                             success: function (result) {
                                 if("done" === result){
                                     toastr.success("success assign to ATS");
@@ -489,6 +508,77 @@ desired effect
 
         });
     }
+
+    function deleteTaskButtonInit() {
+        $('#deleteTask').click(function () {
+            var ckArr = $('#taskTable').bootstrapTable('getSelections');
+            console.log(ckArr);
+            if(ckArr.length == 0){
+                toastr.info("Please select at least one checkbox");
+                return;
+            }
+            if(ckArr.length >= 1 && ckArr.length<= 5){
+                bootbox.confirm({
+                    message: " Do you want delete ?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                type: "get",
+                                url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
+                                data: {multiTask: ckArr},
+                                dataType: 'json',
+                                success: function (result2) {
+                                    console.log(result2.NoTaskIdFlag);
+                                    console.log(result2.NotPendingFlag);
+                                    if (result2.NoTaskIdFlag){
+                                        toastr.info("TaskID = " + result2.saveNoTaskId + " didn't found! Please Refresh Table!");
+                                        return;
+                                    }
+                                    if (result2.NotPendingFlag) {
+                                        toastr.info("TaskID = " + result2.saveNotPending + " not pending! cannnot delete");
+                                        return;
+                                    }
+                                    // delete
+                                    $.ajax({
+                                        type: "get",
+                                        url: "../functions/atsController.php?do=deleteAtsInfoByMultiTaskId",
+                                        data: {multiTask: ckArr},
+                                        // dataType: 'json',
+                                        success: function (result2) {
+                                            if("done" == result2){
+                                                toastr.success("success deleted");
+                                                $('#taskTable').bootstrapTable('selectPage', 1);
+                                            } else {
+                                                toastr.error(result2);
+                                            }
+                                        },
+                                        error: function () {
+                                            toastr.error("fail deleted");
+                                        }
+                                    });
+                                },
+                                error: function (xhr,status,error) {
+                                    toastr.error(xhr.status + " " + xhr.statusText);
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                toastr.warning("Please select not more than five checkbox");
+            }
+        });
+    };
 </script>
 
 </body>

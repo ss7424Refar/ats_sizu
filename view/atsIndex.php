@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="../dist/css/skins/skin-blue.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,13 +80,24 @@ desired effect
           </a>
           <ul class="treeview-menu">
               <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
-              <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
+              <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
           </ul>
         </li>
           <li class="header">INFO</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li><a href="taskManager.php"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
-          <li class="header">SETTING</li>
+          <li class="treeview" >
+              <a href="#"><i class="fa fa-link"></i> <span>Task Manager</span>
+                  <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Jump Start</a></li>
+              </ul>
+          </li>
+          <li class="header">CHECK OUT</li>
+          <li class="treeview" >
+              <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
+          </li>
 
       </ul>
       <!-- /.sidebar-menu -->

@@ -192,11 +192,13 @@ class atsTestTask{
                 // unix
                 chmod($fileCreate, 0777); // no effect
 
-                if(!copy($fileCreate, ATS_TASKS_PATH. $fileName) || !unlink($fileCreate)){
-                    echo json_encode($multiTask[$i]['TaskID']. " copy or delete fail".
-                        copy($fileCreate, ATS_TASKS_PATH. $fileName). '_'. unlink($fileCreate));
+                if(1 != copy($fileCreate, ATS_TASKS_PATH. $fileName)){
+                    echo json_encode($multiTask[$i]['TaskID']. " copy fail". copy($fileCreate, ATS_TASKS_PATH. $fileName));
                     exit();
-                } else {
+                }else if (1 != unlink($fileCreate)){
+                    echo json_encode($multiTask[$i]['TaskID']. "delete fail". unlink($fileCreate));
+                    exit();
+                }else {
                     // update
                     $stmtUpdate = $pdoc->prepare($sql4TestTask);
                     $stmtUpdate->bindParam(1, $multiTask[$i]['TaskID']);

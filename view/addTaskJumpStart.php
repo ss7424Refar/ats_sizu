@@ -99,10 +99,20 @@ desired effect
                     </ul>
                 </li>
                 <li class="header">INFO</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li><a href="taskManager.php"><i class="fa fa-link"></i> <span>Task Manager</span></a></li>
-                <li class="header">SETTING</li>
-
+                <li class="treeview" >
+                    <a href="#"><i class="fa fa-link"></i> <span>Task Manager</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Jump Start</a></li>
+                    </ul>
+                </li>
+                <li class="header">CHECK OUT</li>
+                <li class="treeview" >
+                    <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -118,7 +128,8 @@ desired effect
                 <small>For Jump Start</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Auto Tool</a></li>
+                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li>Auto Tool</li>
                 <li class="active">Jump Start</li>
             </ol>
         </section>
@@ -411,7 +422,6 @@ desired effect
             if (addDefaultCK.prop('checked')){
                 $.ajax({
                     type: 'get',
-                    // url: 'function/readDmiInfoFromCSV.php',
                     url: "../functions/atsController.php?do=readTestPCInfo",
                     data: {machineId: machineId},
                     dataType: 'json',
