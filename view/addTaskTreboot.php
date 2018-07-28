@@ -95,7 +95,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="header">CHECK OUT</li>
-                <li class="treeview" >
+                <li>
                     <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
                 </li>
 

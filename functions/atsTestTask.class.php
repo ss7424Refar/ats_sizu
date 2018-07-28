@@ -5,7 +5,6 @@
  * Date: 18-6-25
  * Time: 上午9:52
  */
-session_start();
 
 require_once 'atsDbConnect.php';
 require_once '../ats_config.inc.php';
@@ -190,13 +189,16 @@ class atsTestTask{
                 }
                 fclose($file);
                 // unix
-                chmod($fileCreate, 0777); // no effect
+                chmod($fileCreate, 0777);
+                $cpRe = copy($fileCreate, ATS_TASKS_PATH. $fileName);
+                chmod(ATS_TASKS_PATH. $fileName, 0777);
+                $unRe = unlink($fileCreate);
 
-                if(1 != copy($fileCreate, ATS_TASKS_PATH. $fileName)){
-                    echo json_encode($multiTask[$i]['TaskID']. " copy fail". copy($fileCreate, ATS_TASKS_PATH. $fileName));
+                if(1 != $cpRe){
+                    echo json_encode($multiTask[$i]['TaskID']. " copy fail". $cpRe);
                     exit();
-                }else if (1 != unlink($fileCreate)){
-                    echo json_encode($multiTask[$i]['TaskID']. "delete fail". unlink($fileCreate));
+                }else if (1 != $unRe){
+                    echo json_encode($multiTask[$i]['TaskID']. "delete fail". $unRe);
                     exit();
                 }else {
                     // update
@@ -209,9 +211,8 @@ class atsTestTask{
         echo json_encode("done");
     }
 
-    function insertAtsTaskInfo($addTaskFormData){
+    function insertAtsTaskInfo($addTaskFormData, $user){
 
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
         $switchId = explode("_",$addTaskFormData['shelf'])[1];
         $shelfId = explode("_",$addTaskFormData['shelf'])[0];
 

@@ -1,5 +1,5 @@
-TaskID=19
-TestImage=.java
+TaskID=42
+TestImage=work
 DMIModifyFlag=0
 DMI_ProductName=dynabook Tab S61/NG
 DMI_PartNumber=PS68NNP-NXC
@@ -17,4 +17,4 @@ TestResultPath=NULL
 TestStartTime=NULL
 TestEndTime=NULL
 TaskStatus=0
-Tester=NULL
+Tester=admin

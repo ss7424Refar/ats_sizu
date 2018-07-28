@@ -5,9 +5,11 @@
  * Date: 18-6-25
  * Time: 上午9:44
  */
+session_start();
 
 require_once 'atsTestTask.class.php';
 $action=isset($_GET['do']) ? $_GET['do'] : '';
+$user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
 
 // handler
 if(!empty($action)){
@@ -26,7 +28,7 @@ if(!empty($action)){
             break;
         case 'getAtsInfoByTaskId':
             $taskID=isset($_GET['taskID']) ? $_GET['taskID'] : 0;
-            $atsTask->getAtsTaskInfoByTaskId($taskID);
+            $atsTask->getAtsTaskInfoByTaskId($taskID, $user);
             break;
         case 'checkAtsInfoByMultiTaskId':
             $multiTask=isset($_GET['multiTask']) ? $_GET['multiTask'] : 0;
@@ -41,7 +43,7 @@ if(!empty($action)){
             $atsTask->deleteAtsInfoByMultiTaskId($multiTask);
             break;
         case 'addTask':
-            $atsTask->insertAtsTaskInfo(process4InitAddTaskForm());
+            $atsTask->insertAtsTaskInfo(process4InitAddTaskForm(), $user);
             break;
         default:
 

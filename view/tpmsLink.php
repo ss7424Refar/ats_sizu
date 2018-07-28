@@ -9,7 +9,7 @@
  */
 
 session_start(); // 初始化session
-$_SESSION['name'] = "admin"; //保存某个session信息
+$_SESSION['user'] = "admin"; //保存某个session信息
 
 echo isset($_GET['message']) ? $_GET['message'] : '';
 ?>

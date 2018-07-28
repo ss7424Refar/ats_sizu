@@ -7,7 +7,8 @@
  */
 session_start();
 
-if (!isset($_SESSION['name'])){
+$_SESSION['user'] = 'admin';
+if (!isset($_SESSION['user'])){
     header('Location:404.html');
     exit();
 }
@@ -32,20 +33,24 @@ if (!isset($_SESSION['name'])){
        // toastr.options.progressBar = true;
 
        $('#useToggle').click(function () {
-           $.ajax({
-               type: 'post',
-               url: "../functions/getUserInfo.php",
-               data: {username: $('#useToggle span').text()},
-               dataType: 'json',
-               success: function(result){
-                   console.log(result);
+           console.log($(this).attr('aria-expanded'));
+           if (!$(this).attr('aria-expanded')){
+               $.ajax({
+                   type: 'post',
+                   url: "../functions/getUserInfo.php",
+                   data: {username: $('#useToggle span').text()},
+                   dataType: 'json',
+                   success: function(result){
+                       console.log(result);
 
-                   $('.user-header p').html(result.login + ' - '+ result.description + '<small>' + result.email +'</small>');
-               },
-               error: function () {
-                   toastr.error("get userInfo fail");
-               }
-           })
+                       $('.user-header p').html(result.login + ' - '+ result.description + '<small>' + result.email +'</small>');
+                   },
+                   error: function () {
+                       toastr.error("get userInfo fail");
+                   }
+               });
+           }
+
        });
 
 
@@ -142,7 +147,7 @@ if (!isset($_SESSION['name'])){
                         <img src="../resource/img/sizu.gif" class="user-image" alt="User Image">
 <!--                        <img src="../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">-->
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs"><?php echo $_SESSION['name']?></span>
+                        <span class="hidden-xs"><?php echo $_SESSION['user']?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->

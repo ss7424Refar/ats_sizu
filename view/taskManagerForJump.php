@@ -103,7 +103,7 @@ desired effect
                     </ul>
                 </li>
                 <li class="header">CHECK OUT</li>
-                <li class="treeview" >
+                <li>
                     <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
                 </li>
 
@@ -142,7 +142,8 @@ desired effect
                         <div class="box-body">
                             <div id="toolbar" class="btn-toolbar" role="toolbar">
                                 <div class="btn-group" role="group" >
-                                    <button type="button" class="btn btn-primary btn-sm" id="task"><i class="fa fa-tasks"></i>&nbsp;Task</button>
+<!--                                    <button type="button" class="btn btn-primary btn-sm" id="task"><i class="fa fa-tasks"></i>&nbsp;Task</button>-->
+                                    <button type="button" class="btn btn-primary btn-sm" id="task"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Task</button>
                                 </div>
 
                                 <div class="btn-group" role="group" style="display: none">
@@ -361,8 +362,6 @@ desired effect
                         return "pending";
                     }else if (1==value){
                         return "ongoing";
-                    }else if (1==value){
-                        return "ongoing";
                     }else if (2==value){
                         return "finished";
                     }else if (3==value){
@@ -396,11 +395,13 @@ desired effect
                 if("fail"==row.TestResult){
                     return {classes: 'danger'};
                 }else if("pass"==row.TestResult){
-                    return {classes: 'active'};
+                    return {classes: 'success'};
                 }else if(0==row.TaskStatus){
                     return {classes: 'info'};
+                }else if(1==row.TaskStatus){
+                    return {classes: 'warning'};
                 }
-                return {classes: 'warning'};
+                return {classes: 'active'};
             },
 
             formatLoadingMessage: function () {
