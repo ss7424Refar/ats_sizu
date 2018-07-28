@@ -58,6 +58,9 @@ nginx的默认用户和用户组是www-data（在nginx.conf中配置
 
 2) */10 * * * * /home/aspera/my_script.sh
 
+#use ps to set http request to updateDB
+1) curl  'http://192.168.0.100/ats_sizu/script/update4Task.php?filename=Task_1_11_39.csv&taskId=39' | Select -ExpandProperty Content | Out-File -Append 'e:\content.txt'
+
 #toDo
 1: 需要重新查看查询表的sql。因为要排序 (可能需要优化)
 4: 改善200 Ok
