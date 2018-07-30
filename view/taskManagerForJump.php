@@ -28,6 +28,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="../plugins/CodeSeven-toastr/build/toastr.min.css" rel="stylesheet" />
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="../plugins/iCheck/all.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -160,6 +162,93 @@ desired effect
                     </div>
                 </div>
             </div>
+            <!-- Edit 模态框（Modal） -->
+            <div class="modal fade" id="editModal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Test Task</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal form-group-sm" id="editForm">
+                                <div class="form-group" style="display: none">
+                                    <label class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Test Machine</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" disabled="disabled">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Test Image</label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" name="testImage">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TestDMIReset" class="col-sm-3 control-label">TestDMIReset</label>
+                                    <div class="col-sm-7">
+                                        <div class="btn btn-default btn-sm">getDefaultDMI</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-3 control-label">Product Name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Serial Number</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Part Number</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">OEM String</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">SystemConfig</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">LANIP</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">ShelfID_SwitchID</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Submit</button>
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
             <!--        dmi info-->
             <div class="modal fade" id="dmiInfo"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -245,6 +334,8 @@ desired effect
 <script src="../plugins/iCheck/icheck.min.js"></script>
 <!-- bootbox4.4 -->
 <script src="../plugins/bootbox4.4/bootbox.min.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/select2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 
@@ -260,11 +351,20 @@ desired effect
         // table
         tableInit(queryParams);
 
+        // select2
+        select2Init();
+
          // assign
         assignButtonInit();
 
         // delete
         deleteTaskButtonInit();
+
+        // $('#editModal').modal({
+        //     show: true
+        // });
+        //edit
+        editButtonInit();
 
     });
 
@@ -347,8 +447,6 @@ desired effect
                 field: 'TestImage',
                 title: 'Test Image'
             }, {
-                // field: 'DMI_SerialNumer',
-                // title: 'Serial Numer'
                 field: 'MachineID',
                 title: 'MachineID'
             }, {
@@ -453,6 +551,31 @@ desired effect
         return temp;//传递参数（*
     };
 
+    function  select2Init() {
+        $("select[name='testImage']").select2({
+                width: "100%",
+                ajax: {
+                    url: "../functions/atsController.php?do=getImageName4Select2",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: false
+                },
+                placeholder: 'Please Select',
+                allowClear: true
+            }
+        );
+    }
+
     function assignButtonInit(){
         $('#assignTask').click( function () {
             var ckArr = $('#taskTable').bootstrapTable('getSelections');
@@ -460,6 +583,7 @@ desired effect
 
             if(ckArr.length == 0){
                 toastr.info("Please select at least one checkbox");
+                return false;
 
             } else if(ckArr.length >= 1 && ckArr.length<= 5){
                 $.ajax({
@@ -505,9 +629,85 @@ desired effect
                 });
             } else {
                 toastr.warning("Please select not more than five checkbox");
+                return false;
             }
 
         });
+    }
+
+    function editButtonInit() {
+        $('#editTask').click(function () {
+            var ckArr = $('#taskTable').bootstrapTable('getSelections');
+            console.log(ckArr);
+            if(ckArr.length == 0){
+                toastr.info("Please select at least one checkbox");
+                return false;
+            }
+            if(ckArr.length > 1){
+                toastr.info("Please only check one checkbox");
+                return false;
+            }else{
+                // bootbox.confirm({
+                //     message: " Do you want delete ?",
+                //     buttons: {
+                //         confirm: {
+                //             label: 'Yes',
+                //             className: 'btn-success'
+                //         },
+                //         cancel: {
+                //             label: 'No',
+                //             className: 'btn-danger'
+                //         }
+                //     },
+                //     callback: function (result) {
+                //         if(result){
+                //             $.ajax({
+                //                 type: "get",
+                //                 url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
+                //                 data: {multiTask: ckArr},
+                //                 dataType: 'json',
+                //                 success: function (result2) {
+                //                     console.log(result2.NoTaskIdFlag);
+                //                     console.log(result2.NotPendingFlag);
+                //                     if (result2.NoTaskIdFlag){
+                //                         toastr.info("TaskID = " + result2.saveNoTaskId + " didn't found! Please Refresh Table!");
+                //                         return;
+                //                     }
+                //                     if (result2.NotPendingFlag) {
+                //                         toastr.info("TaskID = " + result2.saveNotPending + " not pending! cannnot delete");
+                //                         return;
+                //                     }
+                //                     // delete
+                //                     $.ajax({
+                //                         type: "get",
+                //                         url: "../functions/atsController.php?do=deleteAtsInfoByMultiTaskId",
+                //                         data: {multiTask: ckArr},
+                //                         // dataType: 'json',
+                //                         success: function (result2) {
+                //                             if("done" == result2){
+                //                                 toastr.success("success deleted");
+                //                                 $('#taskTable').bootstrapTable('selectPage', 1);
+                //                             } else {
+                //                                 toastr.error(result2);
+                //                             }
+                //                         },
+                //                         error: function () {
+                //                             toastr.error("fail deleted");
+                //                         }
+                //                     });
+                //                 },
+                //                 error: function (xhr,status,error) {
+                //                     toastr.error(xhr.status + " " + xhr.statusText);
+                //                 }
+                //             });
+                //         }
+                //     }
+                // });
+
+
+            }
+        });
+
     }
 
     function deleteTaskButtonInit() {
@@ -516,7 +716,7 @@ desired effect
             console.log(ckArr);
             if(ckArr.length == 0){
                 toastr.info("Please select at least one checkbox");
-                return;
+                return false;
             }
             if(ckArr.length >= 1 && ckArr.length<= 5){
                 bootbox.confirm({
@@ -577,9 +777,11 @@ desired effect
                 });
             } else {
                 toastr.warning("Please select not more than five checkbox");
+                return false;
             }
         });
     };
+
 </script>
 
 </body>
