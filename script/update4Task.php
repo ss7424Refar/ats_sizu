@@ -14,9 +14,6 @@ $handler = opendir(ATS_FINISH_PATH);
 $filename = isset($_GET['filename']) ? $_GET['filename'] : '';
 $taskId = isset($_GET['taskId']) ? $_GET['taskId'] : '';
 
-$filename = "Task_1_11_39.csv";
-$taskId = 39;
-
 $pdoc = getPDOConnect();
 
 $sql4UpdateTask = "UPDATE `ats_testtask_info` SET `TestResult`=?, `TestResultPath`=?," .

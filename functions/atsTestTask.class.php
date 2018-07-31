@@ -251,4 +251,10 @@ class atsTestTask{
 
     }
 
+    function updateAtsInfoByTaskId($taskId=null){
+        $sql = "update ";
+
+    }
+
+
 }

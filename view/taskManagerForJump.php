@@ -30,6 +30,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="../plugins/iCheck/all.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+    <!--    bootstrapValidator-->
+    <link href="../plugins/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -151,7 +153,7 @@ desired effect
                                 <div class="btn-group" role="group" style="display: none">
 <!--                                    <button type="button" class="btn btn-success btn-sm" id="addTask" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus fa-fw"></i>&nbsp;Add</button>-->
                                     <button type="button" class="btn btn-warning btn-sm" id="assignTask"><i class="fa fa-wrench fa-fw"></i>&nbsp;Assign</button>
-                                    <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
+                                    <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="deleteTask"><i class="fa fa-close  fa-fw"></i>&nbsp;Delete</button>
                                     <button type="button" class="btn btn-default btn-sm"><i class="fa fa-copy fa-fw"></i>&nbsp;Copy</button>
                                 </div>
@@ -200,31 +202,31 @@ desired effect
                                 <div class="form-group">
                                     <label  class="col-sm-3 control-label">Product Name</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="editProduct">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Serial Number</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="editSN">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Part Number</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="editPN">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">OEM String</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="editOem">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">SystemConfig</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="editSystem">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -239,18 +241,17 @@ desired effect
                                         <input type="text" class="form-control" disabled>
                                     </div>
                                 </div>
+                            </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                                </div>
                             </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-sm">Submit</button>
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                        </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
             <!--        dmi info-->
-            <div class="modal fade" id="dmiInfo"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="dmiInfo"  role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -336,6 +337,8 @@ desired effect
 <script src="../plugins/bootbox4.4/bootbox.min.js"></script>
 <!-- Select2 -->
 <script src="../bower_components/select2/dist/select2.min.js"></script>
+<!--    bootstrapValidator-->
+<script src="../plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 
@@ -360,11 +363,10 @@ desired effect
         // delete
         deleteTaskButtonInit();
 
-        // $('#editModal').modal({
-        //     show: true
-        // });
         //edit
         editButtonInit();
+
+        editFormInit();
 
     });
 
@@ -479,9 +481,9 @@ desired effect
                 field: 'TestResult',
                 title: 'Test Result',
                 formatter: function(value, row, index){
-                    if("fail"==value){
+                    if("Fail"==value){
                         return '<a target="_blank" href=file://' + row.TestResultPath  + '><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
-                    } else if("pass"==value){
+                    } else if("Pass"==value){
                         return '<a target="_blank" href=file://' + row.TestResultPath + '><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
                     }
                     return "N/A";
@@ -535,7 +537,7 @@ desired effect
                         toastr.info("TaskID = " + taskId + " didn't found! Please Refresh Table!");
                     }
                 },
-                error:function (xhr,status,error) {x
+                error:function (xhr,status,error) {
                     toastr.error(xhr.status + " " + xhr.statusText);
                 }
             });
@@ -597,11 +599,11 @@ desired effect
 
                         if (result.NoTaskIdFlag){
                             toastr.info("TaskID = " + result.saveNoTaskId + " didn't found! Please Refresh Table!");
-                            return;
+                            return false;
                         }
                         if (result.NotPendingFlag) {
                             toastr.info("TaskID = " + result.saveNotPending + " not pending! cannnot assign to ATS");
-                            return;
+                            return false;
                         }
 
                         // assign to ATS
@@ -638,7 +640,7 @@ desired effect
     function editButtonInit() {
         $('#editTask').click(function () {
             var ckArr = $('#taskTable').bootstrapTable('getSelections');
-            console.log(ckArr);
+            // console.log(ckArr[0].TaskID);
             if(ckArr.length == 0){
                 toastr.info("Please select at least one checkbox");
                 return false;
@@ -647,63 +649,65 @@ desired effect
                 toastr.info("Please only check one checkbox");
                 return false;
             }else{
-                // bootbox.confirm({
-                //     message: " Do you want delete ?",
-                //     buttons: {
-                //         confirm: {
-                //             label: 'Yes',
-                //             className: 'btn-success'
-                //         },
-                //         cancel: {
-                //             label: 'No',
-                //             className: 'btn-danger'
-                //         }
-                //     },
-                //     callback: function (result) {
-                //         if(result){
-                //             $.ajax({
-                //                 type: "get",
-                //                 url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
-                //                 data: {multiTask: ckArr},
-                //                 dataType: 'json',
-                //                 success: function (result2) {
-                //                     console.log(result2.NoTaskIdFlag);
-                //                     console.log(result2.NotPendingFlag);
-                //                     if (result2.NoTaskIdFlag){
-                //                         toastr.info("TaskID = " + result2.saveNoTaskId + " didn't found! Please Refresh Table!");
-                //                         return;
-                //                     }
-                //                     if (result2.NotPendingFlag) {
-                //                         toastr.info("TaskID = " + result2.saveNotPending + " not pending! cannnot delete");
-                //                         return;
-                //                     }
-                //                     // delete
-                //                     $.ajax({
-                //                         type: "get",
-                //                         url: "../functions/atsController.php?do=deleteAtsInfoByMultiTaskId",
-                //                         data: {multiTask: ckArr},
-                //                         // dataType: 'json',
-                //                         success: function (result2) {
-                //                             if("done" == result2){
-                //                                 toastr.success("success deleted");
-                //                                 $('#taskTable').bootstrapTable('selectPage', 1);
-                //                             } else {
-                //                                 toastr.error(result2);
-                //                             }
-                //                         },
-                //                         error: function () {
-                //                             toastr.error("fail deleted");
-                //                         }
-                //                     });
-                //                 },
-                //                 error: function (xhr,status,error) {
-                //                     toastr.error(xhr.status + " " + xhr.statusText);
-                //                 }
-                //             });
-                //         }
-                //     }
-                // });
+                // checkPending
+                $.ajax({
+                    type: "get",
+                    url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
+                    data: {multiTask: ckArr},
+                    dataType: 'json',
+                    success: function (result) {
+                        console.log(result.NoTaskIdFlag);
+                        console.log(result.NotPendingFlag);
 
+                        if (result.NoTaskIdFlag) {
+                            toastr.info("TaskID = " + result.saveNoTaskId + " didn't found! Please Refresh Table!");
+                            return false;
+                        }
+                        if (result.NotPendingFlag) {
+                            toastr.info("TaskID = " + result.saveNotPending + " not pending! cannnot edit");
+                            return false;
+                        }
+
+                        $('#editForm').data('bootstrapValidator').destroy();
+                        editFormInit();
+
+                        // show updateData
+                        $.ajax({
+                            type: "get",
+                            url: "../functions/atsController.php?do=getAtsInfoByTaskId&" + "taskID=" + ckArr[0].TaskID,
+                            dataType: "json",
+                            success: function (result) {
+                                console.log(result.flag);
+                                if(result.flag){
+                                    $("#editForm").find('input:eq(0)').val(result.row['TaskID']);
+                                    $("#editForm").find('input:eq(1)').val(result.row['TestMachine']);
+                                    $("#editForm").find('input:eq(2)').val(result.row['DMI_ProductName']);
+                                    $("#editForm").find('input:eq(3)').val(result.row['DMI_SerialNumber']);
+                                    $("#editForm").find('input:eq(4)').val(result.row['DMI_PartNumber']);
+                                    $("#editForm").find('input:eq(5)').val(result.row['DMI_OEMString']);
+                                    $("#editForm").find('input:eq(6)').val(result.row['DMI_SystemConfig']);
+                                    $("#editForm").find('input:eq(7)').val(result.row['LANIP']);
+                                    $("#editForm").find('input:eq(8)').val(result.row['ShelfID'] + '_' + result.row['SwitchId']);
+
+                                    var option = new Option(result.row['TestImage'], result.row['TaskID'], true, true);
+                                    $("select[name='testImage']").append(option).trigger('change');
+
+                                    $('#editModal').modal("show")
+
+                                }
+                                else{
+                                    toastr.info("TaskID = " + taskId + " didn't found! Please Refresh Table!");
+                                }
+                            },
+                            error:function (xhr,status,error) {
+                                toastr.error(xhr.status + " " + xhr.statusText + "Get Update Data Failed");
+                            }
+                        });
+                    },
+                    error: function (xhr,status,error) {
+                        toastr.error(xhr.status + " " + xhr.statusText+ "CheckPending Data Failed");
+                    }
+                });
 
             }
         });
@@ -743,11 +747,11 @@ desired effect
                                     console.log(result2.NotPendingFlag);
                                     if (result2.NoTaskIdFlag){
                                         toastr.info("TaskID = " + result2.saveNoTaskId + " didn't found! Please Refresh Table!");
-                                        return;
+                                        return false;
                                     }
                                     if (result2.NotPendingFlag) {
                                         toastr.info("TaskID = " + result2.saveNotPending + " not pending! cannnot delete");
-                                        return;
+                                        return false;
                                     }
                                     // delete
                                     $.ajax({
@@ -781,6 +785,143 @@ desired effect
             }
         });
     };
+
+    function editFormInit() {
+        $('#editForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                testImage: {
+                    message: 'the testImage is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The testImage is required and can\'t be empty'
+                        }
+                    }
+                },
+                editProduct: {
+                    message: 'the Product Name is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The product name is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: 'The product name must be more than 5 and less than 20 characters long'
+                        }
+                    }
+                },
+                editSN: {
+                    message: 'the sn is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The sn is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 20,
+                            message: 'The sn must be more than 5 and less than 20 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The sn can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                editPN: {
+                    message: 'the pn is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The pn is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 30,
+                            message: 'The pn must be more than 5 and less than 20 characters long'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The pn can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                editOem: {
+                    // enabled: false,
+                    message: 'the oem is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The oem is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 100,
+                            message: 'The oem must be more than 5 and less than 100 characters long'
+                        },
+                        regexp: {
+                            // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The oem can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                },
+                editSystem: {
+                    // enabled: false,
+                    message: 'the sytsem config is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The sytsem config is required and can\'t be empty'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: 'The sytsem config must be more than 5 and less than 100 characters long'
+                        },
+                        regexp: {
+                            // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            message: 'The sytsem config can only consist of special character like ~!@#$%^&*-/, , number, en.'
+                        }
+
+                    }
+                }
+            }
+
+        }).on('success.form.bv', function (e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            $.ajax({
+                type: "get",
+                url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
+                data: {multiTask: ckArr},
+                dataType: 'json',
+                success: function (result) {
+
+
+                },
+                error: function () {
+
+                }
+
+            });
+
+
+        });
+    }
 
 </script>
 
