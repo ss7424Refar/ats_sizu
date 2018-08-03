@@ -656,7 +656,7 @@ desired effect
                         addOem:pDmiInfo.find('p:eq(3)').text(),
                         addSystem: pDmiInfo.find('p:eq(4)').text(),
                         lanIp: pDmiInfo.find('p:eq(5)').text(),
-                        shelf: pDmiInfo.find('p:eq(6)').text(),
+                        shelf: pDmiInfo.find('p:eq(6)').text()
                     },
                     success : function (result) {
                         console.log(result);

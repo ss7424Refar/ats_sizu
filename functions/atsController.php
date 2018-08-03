@@ -45,6 +45,9 @@ if(!empty($action)){
         case 'addTask':
             $atsTask->insertAtsTaskInfo(process4InitAddTaskForm(), $user);
             break;
+        case 'updateTaskById':
+            $atsTask->updateTaskById(process4InitEditTaskForm());
+            break;
         default:
 
     }
@@ -74,4 +77,21 @@ function process4InitAddTaskForm(){
         'addSN'=>$addSN, 'addPN'=>$addPN, 'addOem'=>$addOem, 'addSystem'=> $addSystem, 'lanIp'=> $lanIp, 'shelf'=>$shelf);
 
     return $addFormArray;
+}
+
+function process4InitEditTaskForm(){
+
+    $editId=isset($_GET['editId']) ? $_GET['editId'] : '';
+    $editImage=isset($_GET['editImage']) ? $_GET['editImage'] : '';
+    $customer=isset($_GET['customer']) ? ($_GET['customer'] =='default' ? 0 : 1) : '';
+    $editProduct=isset($_GET['editProduct']) ? $_GET['editProduct'] : '';
+    $editSN=isset($_GET['editSN']) ? $_GET['editSN'] : '';
+    $editPN=isset($_GET['editPN']) ? $_GET['editPN'] : '';
+    $editOem=isset($_GET['editOem']) ? $_GET['editOem'] : '';
+    $editSystem=isset($_GET['editSystem']) ? $_GET['editSystem'] : '';
+
+    $editFormArray = array('editId'=> $editId, 'editImage'=> $editImage, 'customer'=> $customer, 'editProduct'=>$editProduct, 'editSN'=>$editSN, 'editPN'=>$editPN,
+        'editOem'=>$editOem, 'editSystem'=>$editSystem);
+
+    return $editFormArray;
 }

@@ -155,7 +155,7 @@ desired effect
                                     <button type="button" class="btn btn-warning btn-sm" id="assignTask"><i class="fa fa-wrench fa-fw"></i>&nbsp;Assign</button>
                                     <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="deleteTask"><i class="fa fa-close  fa-fw"></i>&nbsp;Delete</button>
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-copy fa-fw"></i>&nbsp;Copy</button>
+<!--                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-copy fa-fw"></i>&nbsp;Copy</button>-->
                                 </div>
                                 <!--                <button class="btn btn-warning pull-right btn-sm" href="#"><i class="fa fa-sync fa-spin fa-fw" aria-hidden="true"></i></button>-->
                             </div>
@@ -174,12 +174,7 @@ desired effect
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal form-group-sm" id="editForm">
-                                <div class="form-group" style="display: none">
-                                    <label class="col-sm-3 control-label"></label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
+                                <input type="text" hidden="hidden">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Test Machine</label>
                                     <div class="col-sm-7">
@@ -197,6 +192,7 @@ desired effect
                                     <label for="TestDMIReset" class="col-sm-3 control-label">TestDMIReset</label>
                                     <div class="col-sm-7">
                                         <div class="btn btn-default btn-sm">getDefaultDMI</div>
+                                        <input type="text" hidden="hidden">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -681,13 +677,13 @@ desired effect
                                 if(result.flag){
                                     $("#editForm").find('input:eq(0)').val(result.row['TaskID']);
                                     $("#editForm").find('input:eq(1)').val(result.row['TestMachine']);
-                                    $("#editForm").find('input:eq(2)').val(result.row['DMI_ProductName']);
-                                    $("#editForm").find('input:eq(3)').val(result.row['DMI_SerialNumber']);
-                                    $("#editForm").find('input:eq(4)').val(result.row['DMI_PartNumber']);
-                                    $("#editForm").find('input:eq(5)').val(result.row['DMI_OEMString']);
-                                    $("#editForm").find('input:eq(6)').val(result.row['DMI_SystemConfig']);
-                                    $("#editForm").find('input:eq(7)').val(result.row['LANIP']);
-                                    $("#editForm").find('input:eq(8)').val(result.row['ShelfID'] + '_' + result.row['SwitchId']);
+                                    $("#editForm").find('input:eq(3)').val(result.row['DMI_ProductName']);
+                                    $("#editForm").find('input:eq(4)').val(result.row['DMI_SerialNumber']);
+                                    $("#editForm").find('input:eq(5)').val(result.row['DMI_PartNumber']);
+                                    $("#editForm").find('input:eq(6)').val(result.row['DMI_OEMString']);
+                                    $("#editForm").find('input:eq(7)').val(result.row['DMI_SystemConfig']);
+                                    $("#editForm").find('input:eq(8)').val(result.row['LANIP']);
+                                    $("#editForm").find('input:eq(9)').val(result.row['ShelfID'] + '_' + result.row['SwitchId']);
 
                                     var option = new Option(result.row['TestImage'], result.row['TaskID'], true, true);
                                     $("select[name='testImage']").append(option).trigger('change');
@@ -902,19 +898,35 @@ desired effect
             var $form = $(e.target);
 
             // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
+            // var bv = $form.data('bootstrapValidator');
 
             $.ajax({
                 type: "get",
-                url: "../functions/atsController.php?do=checkAtsInfoByMultiTaskId",
-                data: {multiTask: ckArr},
+                url: "../functions/atsController.php?do=updateTaskById",
+                data: {
+                    editId: $("input[hidden=hidden]:eq(0)").val(),
+                    editImage: $("select[name='testImage']").select2('data')[0].text,
+                    customer: $("input[hidden=hidden]:eq(1)").val(),
+                    editProduct: $('#editForm').find('input:eq(3)').val(),
+                    editSN: $('#editForm').find('input:eq(4)').val(),
+                    editPN: $('#editForm').find('input:eq(5)').val(),
+                    editOem:$('#editForm').find('input:eq(6)').val(),
+                    editSystem: $('#editForm').find('input:eq(7)').val(),
+                },
                 dataType: 'json',
                 success: function (result) {
-
-
+                    if (result >= 0 ){
+                        toastr.success("success update");
+                    } else {
+                        toastr.error("update fail --> " + result2);
+                    }
                 },
                 error: function () {
-
+                    toastr.error("fail updated");
+                },
+                complete: function () {
+                    $('#editModal').modal('hide');
+                    $('#taskTable').bootstrapTable('selectPage', 1);
                 }
 
             });

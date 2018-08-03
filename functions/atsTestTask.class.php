@@ -251,8 +251,25 @@ class atsTestTask{
 
     }
 
-    function updateAtsInfoByTaskId($taskId=null){
-        $sql = "update ";
+    function updateTaskById($editTaskFormData){
+        $sql4Update = "UPDATE  $this->atsTaskInfoTable SET `TestImage`=?, `DMIModifyFlag`=?, `DMI_ProductName`=?, `DMI_PartNumber`=?, `DMI_SerialNumber`=?, `DMI_OEMString`=?, `DMI_SystemConfig`=? WHERE `TaskID`=?";
+
+        $pdoc = getPDOConnect();
+        $stmt = $pdoc->prepare($sql4Update);
+        $stmt->bindParam(1, $editTaskFormData['editImage'], PDO::PARAM_STR);
+        $stmt->bindParam(2, $editTaskFormData['customer'], PDO::PARAM_STR);
+        $stmt->bindParam(3, $editTaskFormData['editProduct'], PDO::PARAM_STR);
+        $stmt->bindParam(4, $editTaskFormData['editSN'], PDO::PARAM_STR);
+        $stmt->bindParam(5, $editTaskFormData['editPN'], PDO::PARAM_STR);
+        $stmt->bindParam(6, $editTaskFormData['editOem'], PDO::PARAM_STR);
+        $stmt->bindParam(7, $editTaskFormData['editSystem'], PDO::PARAM_STR);
+        $stmt->bindParam(8, $editTaskFormData['editId'], PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $count = $stmt->rowCount();
+
+        echo json_encode($count);
 
     }
 
