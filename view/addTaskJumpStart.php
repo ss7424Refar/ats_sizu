@@ -708,7 +708,7 @@ desired effect
                         toastr.error(xhr.status + ' add fail! ');
                     },
                     complete : function () {
-                        setTimeout("window.location.href=\"taskManager.php\";",3000);
+                        setTimeout("window.location.href=\"taskManagerForJump.php\";",3000);
 
                     }
                 });
