@@ -88,14 +88,14 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="treeview active" >
-                    <a href="addTaskJumpStart.php"><i class="fa fa-wrench"></i> <span>Auto Tool</span>
+                    <a href="addTaskJumpStart.php"><i class="fa fa-wrench"></i> <span>Add Task</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
-                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
+<!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
                     </ul>
                 </li>
                 <li class="header">INFO</li>
@@ -129,7 +129,7 @@ desired effect
             </h1>
             <ol class="breadcrumb">
                 <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li>Auto Tool</li>
+                <li>Add Task</li>
                 <li class="active">Jump Start</li>
             </ol>
         </section>
@@ -534,7 +534,7 @@ desired effect
                             message: 'The product name must be more than 5 and less than 20 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            regexp: /^[a-zA-Z0-9_~! @#$%^&*-/,]+$/,
                             message: 'The product name can only consist of special character like ~!@#$%^&*-/, , number, en.'
                         }
 
@@ -552,7 +552,7 @@ desired effect
                             message: 'The sn must be more than 5 and less than 20 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            regexp: /^[a-zA-Z0-9_~! @#$%^&*-/,]+$/,
                             message: 'The sn can only consist of special character like ~!@#$%^&*-/, , number, en.'
                         }
 
@@ -570,7 +570,7 @@ desired effect
                             message: 'The pn must be more than 5 and less than 20 characters long'
                         },
                         regexp: {
-                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            regexp: /^[a-zA-Z0-9_~! @#$%^&*-/,]+$/,
                             message: 'The pn can only consist of special character like ~!@#$%^&*-/, , number, en.'
                         }
 
@@ -590,7 +590,7 @@ desired effect
                         },
                         regexp: {
                             // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
-                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            regexp: /^[a-zA-Z0-9_~! @#$%^&*-/,]+$/,
                             message: 'The oem can only consist of special character like ~!@#$%^&*-/, , number, en.'
                         }
 
@@ -610,7 +610,7 @@ desired effect
                         },
                         regexp: {
                             // regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
-                            regexp: /^[a-zA-Z0-9_~!@#$%^&*-/,]+$/,
+                            regexp: /^[a-zA-Z0-9_~! @#$%^&*-/,]+$/,
                             message: 'The sytsem config can only consist of special character like ~!@#$%^&*-/, , number, en.'
                         }
 

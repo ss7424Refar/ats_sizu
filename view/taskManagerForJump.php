@@ -85,14 +85,14 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="treeview" >
-                    <a href="#"><i class="fa fa-wrench"></i> <span>Auto Tool</span>
+                    <a href="#"><i class="fa fa-wrench"></i> <span>Add Task</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
-                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
+<!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
                     </ul>
                 </li>
                 <li class="header">INFO</li>
@@ -478,9 +478,9 @@ desired effect
                 title: 'Test Result',
                 formatter: function(value, row, index){
                     if("Fail"==value){
-                        return '<a target="_blank" href=file://' + row.TestResultPath  + '><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a href="\\\\172.30.52.28\\JSDataBK\\#Temp\@ATS_Results"><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
                     } else if("Pass"==value){
-                        return '<a target="_blank" href=file://' + row.TestResultPath + '><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a href="\\172.30.52.28\JSDataBK\#Temp@ATS_Results"><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
                     }
                     return "N/A";
                     // return "<a href=" +  + "></a>";
@@ -488,9 +488,9 @@ desired effect
             }
             ],
             rowStyle: function(row, index){
-                if("fail"==row.TestResult){
+                if("Fail"==row.TestResult){
                     return {classes: 'danger'};
-                }else if("pass"==row.TestResult){
+                }else if("Pass"==row.TestResult){
                     return {classes: 'success'};
                 }else if(0==row.TaskStatus){
                     return {classes: 'info'};

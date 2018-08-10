@@ -14,6 +14,10 @@ $handler = opendir(ATS_FINISH_PATH);
 $filename = isset($_GET['filename']) ? $_GET['filename'] : '';
 $taskId = isset($_GET['taskId']) ? $_GET['taskId'] : '';
 
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [START] '. PHP_EOL;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [GET] '. $filename. PHP_EOL;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [GET] '. $taskId. PHP_EOL;
+
 $pdoc = getPDOConnect();
 
 $sql4UpdateTask = "UPDATE `ats_testtask_info` SET `TestResult`=?, `TestResultPath`=?," .
@@ -36,6 +40,11 @@ while ($data = fgetcsv($file, 0, '=')) {
 }
 fclose($file);
 
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [Read TestResult] '. $tmpArray['TestResult']. PHP_EOL;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [Read TestResultPath] '. $tmpArray['TestResultPath']. PHP_EOL;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [Read TestEndTime] '. $tmpArray['TestEndTime']. PHP_EOL;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [Read TaskStatus] '. $tmpArray['TaskStatus']. PHP_EOL;
+
 if (!empty($tmpArray)) {
     $stmt = $pdoc->prepare($sql4UpdateTask);
     $stmt->bindParam(1, $tmpArray['TestResult'], PDO::PARAM_STR);
@@ -46,12 +55,13 @@ if (!empty($tmpArray)) {
 
     $stmt->execute();
 
-    if ($stmt->rowCount() > 0) {
-        echo date("Y-m-d H:i:s", time()) . ' : ' . $filename . ' [ updated success ] taskDB result --> ' . $stmt->rowCount() . PHP_EOL;
+    if ($stmt->rowCount() >= 0) {
+        echo date("Y-m-d H:i:s", time()) . ' : ' . $filename . ' [updated success] taskDB result --> ' . $stmt->rowCount() . PHP_EOL;
     } else {
-        echo date("Y-m-d H:i:s", time()) . ' : ' . $filename . ' [ updated fail ] taskDB result --> ' . $stmt->rowCount() . PHP_EOL;
+        echo date("Y-m-d H:i:s", time()) . ' : ' . $filename . ' [updated fail] taskDB result --> ' . $stmt->rowCount() . PHP_EOL;
     }
 
 }
 //关闭连接
 $pdoc = null;
+echo date("Y-m-d H:i:s", time()) . ' : ' . ' [END] '. PHP_EOL;

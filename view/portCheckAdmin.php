@@ -135,14 +135,14 @@ desired effect
                         </div>
                         <div class="box-body">
                             <div class="box box-solid">
-<!--                                <div class="col-md-6" style="height:350px;border-style: solid; border-width: 1px; border-color: #DDDDDD;overflow: scroll;">-->
-<!--                                    <ul class="list-unstyled" id="list">-->
-<!--                                        <li ><span class="text-warning"><i>ATS console detect log for TestPC</i></span></li>-->
-<!---->
-<!--                                    </ul>-->
-<!--                                </div>-->
+                                <div class="col-md-6" style="height:350px;border-style: solid; border-width: 1px; border-color: #DDDDDD;overflow: scroll;">
+                                    <ul class="list-unstyled" id="list">
+                                        <li ><span class="text-warning"><i>ATS console detect log for TestPC</i></span></li>
 
-                                <div class="col-md-12">
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6">
                                     <table class="table table-responsive">
                                         <thead>
                                             <tr>
@@ -150,11 +150,10 @@ desired effect
                                                 <th>MachineId</th>
                                                 <th>LanIp</th>
                                                 <th>Shelf_SwitchId</th>
-                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody id="content">
-                                            <tr><td colspan="12">
+                                            <tr><td colspan="5">
                                                 <span class="text-warning">
                                                     <i><i class="fa fa-spinner fa-pulse" style="color: #0A8CC6"></i> No data detect, Please wait 10s ...</i>
                                                 </span>
@@ -216,8 +215,7 @@ desired effect
         {
 
             // 打开一个 web socket
-            // var ws = new WebSocket("ws://192.168.0.100:8080/");
-            var ws = new WebSocket("ws://172.30.52.43:8084/");
+            var ws = new WebSocket("ws://192.168.0.100:8080/");
 
             ws.onopen = function()
             {
@@ -234,7 +232,7 @@ desired effect
                     response = JSON.parse(response);
                     console.log(response.message);
                     // list
-                    // $('#list').append('<li><span class="text-info small"><i>' + response.message + '</i></span></li>');
+                    $('#list').append('<li><span class="text-info small"><i>' + response.message + '</i></span></li>');
 
                     // table
                     console.log(response.result);
@@ -248,7 +246,6 @@ desired effect
                             $('#content tr:last').append('<td>' + tableData[i].machineId + '</td>');
                             $('#content tr:last').append('<td>' + tableData[i].LANIP + '</td>');
                             $('#content tr:last').append('<td>' + tableData[i].ShelfId_SwitchId + '</td>');
-                            $('#content tr:last').append('<td>busying</td>');
                         }
                     }
 

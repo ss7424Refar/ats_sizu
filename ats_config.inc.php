@@ -32,7 +32,7 @@ define('ATS_TMP_TASKS_HEADER', 'Task'. ATS_FILE_UNDERLINE);
 //define('ATS_TASKS_PATH', '/home/refar/PhpstormProjects/ats_sizu/resource/tasks/');
 define('ATS_TASKS_PATH', '/mnt/atsShare/Tasks/');
 //define('ATS_FINISH_PATH', 'D:/wnmp/www/ATS/ats/resource/finish/');
-define('ATS_FINISH_PATH', '/mnt/atsShare/Finished/');
-//define('ATS_FINISH_PATH', '/home/refar/Phpproject/ats_sizu/resource/finish/');
+//define('ATS_FINISH_PATH', '/mnt/atsShare/Finished/');
+define('ATS_FINISH_PATH', '/home/refar/Phpproject/ats_sizu/resource/finish/');
 //define('ATS_FINISH_PATH', '/home/refar/PhpstormProjects/ats_sizu/resource/finish/');
 

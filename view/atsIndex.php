@@ -73,14 +73,14 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview active" >
-          <a href="#"><i class="fa fa-wrench"></i> <span>Auto Tool</span>
+          <a href="#"><i class="fa fa-wrench"></i> <span>Add Task</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
               <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
-              <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>
+<!--              <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
           </ul>
         </li>
           <li class="header">INFO</li>
