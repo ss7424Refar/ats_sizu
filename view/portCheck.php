@@ -130,7 +130,7 @@ desired effect
                             <div class="alert bg-teal color-palette alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 <!--                                <h4> Alert!</h4>-->
-                                <i><i class="icon fa fa-linux fa-1x" style="color: black"></i> You are checking Port Status. The Using Shelf as bellows</i>
+                                <i><i class="icon fa fa-linux fa-1x" style="color: black"></i> You are checking Port Status. <i style="font-size: 12px;color: yellow">The Using Shelf as below</i>
                             </div>
                         </div>
                         <div class="box-body">

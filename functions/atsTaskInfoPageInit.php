@@ -25,7 +25,7 @@ $conn = getDbConnect();
 
 $tableHeader = "TaskID, TestMachine, TestImage, MachineID, ".
     "TestItem,  TaskStatus, TestStartTime, TestEndTime, TestResult,".
-    "TestResultPath";
+    "TestResultPath, ShelfID, SwitchId";
 
 if (!empty($taskIdSingle)) {
     $taskIdSingle = trim($taskIdSingle);

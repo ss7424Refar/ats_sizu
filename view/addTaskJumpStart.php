@@ -142,7 +142,7 @@ desired effect
                         <div class="box-header with-border">
                             <h3>Task Info</h3>
                         </div>
-                        <form role="form"  class="form-horizontal" id="addTaskForm">
+                        <form role="form"  class="form-horizontal form-group-sm" id="addTaskForm">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Test Machine</label>

@@ -173,7 +173,7 @@ desired effect
                             <h4 class="modal-title" id="myModalLabel">Edit Test Task</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal form-group-sm" id="editForm">
+                            <form class="form-horizontal " id="editForm">
                                 <input type="text" hidden="hidden">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Test Machine</label>
@@ -255,7 +255,7 @@ desired effect
                             <h4 class="modal-title">DMI INFO</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal form-group-sm">
+                            <form class="form-horizontal ">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Task ID</label>
                                     <div class="col-sm-8">
@@ -477,13 +477,13 @@ desired effect
                 field: 'TestResult',
                 title: 'Test Result',
                 formatter: function(value, row, index){
+                    var path = "\\\\172.30.52.28\\JSDataBK\\#Temp\\\@ATS_Results\\Task_"+ row['ShelfID'] + "_" + row.SwitchId + "_" + row.TaskID + "\\";
                     if("Fail"==value){
-                        return '<a href="\\\\172.30.52.28\\JSDataBK\\#Temp\@ATS_Results"><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a href='+ path +'><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
                     } else if("Pass"==value){
-                        return '<a href="\\172.30.52.28\JSDataBK\#Temp@ATS_Results"><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a href='+ path +'><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
                     }
                     return "N/A";
-                    // return "<a href=" +  + "></a>";
                 }
             }
             ],

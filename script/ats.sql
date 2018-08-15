@@ -2,7 +2,7 @@ drop table ats_testtask_info;
 -- ats_testtask_info
 CREATE TABLE `ats_testtask_info` (
   `TaskID` bigint(10) NOT NULL AUTO_INCREMENT,
-  `TestImage` varchar(30) DEFAULT NULL,
+  `TestImage` varchar(60) DEFAULT NULL,
   `DMIModifyFlag` int(1) DEFAULT NULL,
   `DMI_ProductName` VARCHAR(30) NULL,
   `DMI_PartNumber` varchar(30) DEFAULT NULL,
