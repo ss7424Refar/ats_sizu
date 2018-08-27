@@ -12,8 +12,8 @@ define('DB_CHARSET', 'utf8');
 
 // ats image path
 //define('ATS_IMAGES_PATH', 'D:\download');
-//define('ATS_IMAGES_PATH', '/home/refar');
-define('ATS_IMAGES_PATH', '/mnt/atsShare/Image');
+define('ATS_IMAGES_PATH', '/home/refar');
+//define('ATS_IMAGES_PATH', '/mnt/atsShare/Image');
 
 // ats task path
 define('ATS_FILE_UNDERLINE', '_');

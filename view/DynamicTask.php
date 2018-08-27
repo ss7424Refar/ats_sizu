@@ -20,6 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
     <!--PACE-->
   <link rel="stylesheet" href="../plugins/pace/pace.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../plugins/iCheck/all.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -147,7 +149,7 @@ desired effect
                                 </div>
                                 <div class="col-md-5">
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                        Launch Success Modal
+                                        Add Task Detail
                                     </button>
 
                                 </div>
@@ -171,43 +173,31 @@ desired effect
 
                       <div id="collapseO" class="panel-collapse collapse in">
                           <div class="panel-body form-horizontal">
+                                  <div class="form-group">
+                                      <label class="col-sm-1 control-label">TestImage</label>
+                                      <div class="col-sm-4">
+                                              <select class="form-control select2" style="width: 100%;">
+                                                  <option selected="selected">Alabama</option>
+                                                  <option>Alaska</option>
+                                                  <option>California</option>
+                                                  <option>Delaware</option>
+                                                  <option>Tennessee</option>
+                                                  <option>Texas</option>
+                                                  <option>Washington</option>
+                                              </select>
+                                      </div>
+                                      <label class="col-sm-1 control-label">Execute Job</label>
+                                      <div class="col-sm-4">
+                                          <select class="form-control select2" style="width: 100%;">
+                                              <option selected="selected">Fast StartUp</option>
+                                              <option>Alaska</option>
+                                              <option>California</option>
 
-                                  <div class="form-group">
-                                      <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-                                      <div class="col-sm-4">
-                                          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                      </div>
-                                      <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-                                      <div class="col-sm-4">
-                                          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-                                      <div class="col-sm-4">
-                                          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                      </div>
-                                      <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-                                      <div class="col-sm-4">
-                                          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-1 control-label">TestDMIReset</label>
-                                      <div class="col-sm-4"  style="padding-top: 7px;padding-left: 14px">
-                                          <label style="margin-right: 19px">
-                                              <input type="checkbox" name="customer" value="default" /> default
-                                          </label>
-                                          <label style="margin-right: 19px">
-                                              <input type="checkbox" name="customer" value="customer" /> customer
-                                          </label>
-                                          <label  style="margin-right: 19px">
-                                              <input type="checkbox" name="customer" value="customer" /> customer
-                                          </label>
-                                          <label style="margin-right: 19px">
-                                              <input type="checkbox" name="customer" value="customer" /> customer
-                                          </label>
-                                      </div>
+
                                       <label class="col-sm-1 control-label">TestDMIReset</label>
                                       <div class="col-sm-4"  style="padding-top: 7px;padding-left: 14px">
                                           <label style="margin-right: 19px">
@@ -218,20 +208,6 @@ desired effect
                                           </label>
                                       </div>
                                   </div>
-                              <div class="form-group">
-                                  <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-                                  <div class="col-sm-4">
-                                      <select class="form-control">
-                                          <option>option 1</option>
-                                          <option>option 2</option>
-                                          <option>option 3</option>
-                                          <option>option 4</option>
-                                          <option>option 5</option>
-                                      </select>
-                                  </div>
-                                  <label for="inputEmail3" class="col-sm-1 control-label">Email</label>
-
-                              </div>
                               <hr>
                               <button type="button" class="btn btn-success pull-right">
                                   delete Success Modal
@@ -261,6 +237,10 @@ desired effect
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!--PACE-->
 <script src="../plugins/pace/pace.js"></script>
+<!-- Select2 -->
+<script src="../bower_components/select2/dist/select2.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 
@@ -268,7 +248,10 @@ desired effect
     $(function () {
         $('.select2').select2();
 
-
+        $('input[name=customer]').iCheck({
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
     });
 </script>
 

@@ -8,10 +8,10 @@
 session_start();
 
 $_SESSION['user'] = 'admin';
-if (!isset($_SESSION['user'])){
-    header('Location:404.html');
-    exit();
-}
+//if (!isset($_SESSION['user'])){
+//    header('Location:404.html');
+//    exit();
+//}
 ?>
 <!-- jQuery 3 -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
