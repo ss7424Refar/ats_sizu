@@ -111,114 +111,125 @@ desired effect
   <div class="content-wrapper">
       <section class="content">
           <div class="callout callout-info">
-              <h4>Reminder!</h4>
-              Instructions for how to use modals are available on the
-              <a href="http://getbootstrap.com/javascript/#modals">Bootstrap documentation</a>
+              <h4>Hello!</h4>
+                you can add task
           </div>
           <div class="row">
               <div class="col-xs-12">
                   <div class="box box-default">
                       <div class="box-header with-border">
-                          <h3 class="box-title">Modal Examples</h3>
+                          <h3 class="box-title">Selection</h3>
                       </div>
                       <div class="box-body">
-<!--                          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">-->
-<!--                              Launch Default Modal-->
-<!--                          </button>-->
-<!--                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">-->
-<!--                              Launch Info Modal-->
-<!--                          </button>-->
-<!--                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">-->
-<!--                              Launch Danger Modal-->
-<!--                          </button>-->
-<!--                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-warning">-->
-<!--                              Launch Warning Modal-->
-<!--                          </button>-->
                             <div class="row">
                                 <div class="col-md-7">
                                     <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
+                                        <option selected="selected">JumpStart</option>
+                                        <option>C-Test</option>
                                     </select>
 
                                 </div>
                                 <div class="col-md-5">
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                        Add Task Detail
+                                        Add Task
                                     </button>
-
                                 </div>
-
                             </div>
 
                       </div>
                   </div>
               </div>
           </div>
-              <div class="box box-default panel-group" id="accordion1">
-                  <div class="box-header with-border">
-                      <h3 class="box-title">Modal Examples</h3>
-                  </div>
+          <div class="box box-default panel-group" id="accordion1">
+              <div class="box-header with-border">
+                  <h3 class="box-title">Add</h3>
+              </div>
+              <form action="#" method="post">
                   <div class="box-body">
-
                       <button type="button" class="btn btn-info btn-block" data-toggle="collapse"
                               data-target="#collapseO">
-                          简单的可折叠组件
+                          <b>JumpStart</b>
                       </button>
-
                       <div id="collapseO" class="panel-collapse collapse in">
                           <div class="panel-body form-horizontal">
-                                  <div class="form-group">
-                                      <label class="col-sm-1 control-label">TestImage</label>
-                                      <div class="col-sm-4">
-                                              <select class="form-control select2" style="width: 100%;">
-                                                  <option selected="selected">Alabama</option>
-                                                  <option>Alaska</option>
-                                                  <option>California</option>
-                                                  <option>Delaware</option>
-                                                  <option>Tennessee</option>
-                                                  <option>Texas</option>
-                                                  <option>Washington</option>
-                                              </select>
-                                      </div>
-                                      <label class="col-sm-1 control-label">Execute Job</label>
-                                      <div class="col-sm-4">
-                                          <select class="form-control select2" style="width: 100%;">
-                                              <option selected="selected">Fast StartUp</option>
-                                              <option>Alaska</option>
-                                              <option>California</option>
-
-                                          </select>
-                                      </div>
+                              <div class="form-group">
+                                  <label class="col-sm-1 control-label">TestImage</label>
+                                  <div class="col-sm-4">
+                                      <select class="form-control select2" style="width: 100%;" name="TestImage">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                      </select>
                                   </div>
-                                  <div class="form-group">
+                                  <label class="col-sm-1 control-label">Execute Job</label>
+                                  <div class="col-sm-4">
+                                      <select class="form-control select2" style="width: 100%;"  name="ExecuteJob">
+                                          <option selected="selected">FastStartUp</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
 
-                                      <label class="col-sm-1 control-label">TestDMIReset</label>
-                                      <div class="col-sm-4"  style="padding-top: 7px;padding-left: 14px">
-                                          <label style="margin-right: 19px">
-                                              <input type="radio" name="customer" value="default" /> default
-                                          </label>
-                                          <label>
-                                              <input type="radio" name="customer" value="customer" /> customer
-                                          </label>
-                                      </div>
+                                      </select>
                                   </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-1 control-label">OS Activation</label>
+                                  <div class="col-sm-4"  style="padding-top: 7px;padding-left: 14px">
+                                      <label style="margin-right: 19px">
+                                          <input type="radio" name="osA" value="yes" /> YES
+                                      </label>
+                                      <label>
+                                          <input type="radio" name="osA" value="no" /> NO
+                                      </label>
+                                  </div>
+                              </div>
                               <hr>
-                              <button type="button" class="btn btn-success pull-right">
-                                  delete Success Modal
-                              </button>
+                              <button type="button" class="btn btn-success delete"> delete</button>
+                          </div>
+                      </div>
+
+                      <button type="button" class="btn btn-warning btn-block" data-toggle="collapse"
+                              data-target="#collapse1">
+                          <b>Image Recovery</b>
+                      </button>
+                      <div id="collapse1" class="panel-collapse collapse in">
+                          <div class="panel-body form-horizontal">
+                              <div class="form-group">
+                                  <label class="col-sm-1 control-label">TestImage</label>
+                                  <div class="col-sm-4">
+                                      <select class="form-control select2" style="width: 100%;"  name="TestImage">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                      </select>
+                                  </div>
+                                  <label class="col-sm-1 control-label">OS Activation</label>
+                                  <div class="col-sm-4"  style="padding-top: 7px;padding-left: 14px">
+                                      <label style="margin-right: 19px">
+                                          <input type="radio" name="osA1" value="yes" /> YES
+                                      </label>
+                                      <label>
+                                          <input type="radio" name="osA1" value="no" /> NO
+                                      </label>
+                                  </div>
+                              </div>
+                              <hr>
+                              <button type="button" class="btn btn-success "> delete</button>
+                          </div>
                       </div>
                   </div>
                   <div class="box-footer">
-                      <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                      <button type="submit" class="btn btn-primary pull-right" id="sb">Submit</button>
                   </div>
-              </div>
-
+              </form>
+          </div>
       </section>
   </div>
   <!-- /.content-wrapper -->
@@ -248,9 +259,24 @@ desired effect
     $(function () {
         $('.select2').select2();
 
-        $('input[name=customer]').iCheck({
+        $('input[name=osA],input[name=osA1]').iCheck({
             radioClass: 'iradio_square-blue',
             increaseArea: '20%'
+        });
+
+        $('#sb').click(function () {
+
+            var data = $("collapse1").serialize().split("&");
+            console.log(data);
+            var obj={};
+            for(var key in data)
+            {
+                console.log(data[key]);
+                obj[data[key].split("=")[0]] = data[key].split("=")[1];
+            }
+
+            console.log(obj);
+           // console.log($('form').serialize());
         });
     });
 </script>

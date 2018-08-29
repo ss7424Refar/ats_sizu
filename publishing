@@ -69,3 +69,21 @@ nginx的默认用户和用户组是www-data（在nginx.conf中配置
 6:两个select2的组件，取值为id， text。所以不能用过bs validator的callback做check。有点改进。
   -- 可能改善不了了。哎。换成value也不行。stringlength也不行。
 9：有待更新function/getAtsTaskInfo.php
+
+
+######
+
+CREATE TABLE `tpms`.`ats_task_panel` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tool_name` VARCHAR(30) NULL,
+  `panel_class` VARCHAR(45) NULL,
+  `html_type` VARCHAR(10) NULL,
+  `html_class` VARCHAR(100) NULL,
+  `html_name` VARCHAR(20) NULL,
+  `html_url` VARCHAR(100) NULL,
+  `html_value` VARCHAR(100) NULL,
+  `html_default` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+
+ INSERT INTO `tpms`.`ats_task_panel` (`id`, `tool_name`, `panel_class`, `html_type`, `html_class`, `html_name`, `html_url`) VALUES ('1', 'JumpStart', 'btn btn-info btn-block', 'select2', 'form-control select2', 'TestImage', '../functions/atsController.php?do=getImageName4Select2');
