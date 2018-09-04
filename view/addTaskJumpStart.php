@@ -127,11 +127,11 @@ desired effect
                 Add Task
                 <small>For Jump Start</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li>Add Task</li>
-                <li class="active">Jump Start</li>
-            </ol>
+<!--            <ol class="breadcrumb">-->
+<!--                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>-->
+<!--                <li>Add Task</li>-->
+<!--                <li class="active">Jump Start</li>-->
+<!--            </ol>-->
         </section>
 
         <!-- Main content -->
@@ -140,7 +140,7 @@ desired effect
                 <div class="col-md-8 col-md-offset-1">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3>Task Info</h3>
+                            <h3> JumpStart Task Information</h3>
                         </div>
                         <form role="form"  class="form-horizontal form-group-sm" id="addTaskForm">
                             <div class="box-body">
@@ -158,60 +158,26 @@ desired effect
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">TestDMIReset</label>
-                                    <div class="col-sm-9" style="padding-top: 7px;padding-left: 14px">
-                                        <label style="margin-right: 19px">
-                                            <input type="radio" name="customer" value="default" /> default
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="customer" value="customer" /> customer
-                                        </label>
+                                    <label class="col-sm-3 control-label">Execute Job</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2" name="executeJob">
+                                            <option>Fast Startup,Standby,Microsoft Edge</option>
+                                            <option>Fast Startup</option>
+                                            <option>BatteryLife</option>
+                                            <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div style="display:none" data-topic="pDmiInfo">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Product Name</label>
-                                        <div class="col-sm-9">
-                                            <p class="form-control-static"></p>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">OS Activation</label>
+                                    <div class="col-sm-9" style="padding-top: 7px;padding-left: 14px">
+                                        <label style="margin-right: 19px">
+                                            <input type="radio" name="osA" value="yes" checked/> YES
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="osA" value="no" /> NO
+                                        </label>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Serial Number</label>
-                                        <div class="col-sm-9">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Part Number</label>
-                                        <div class="col-sm-9">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">OEM String</label>
-                                        <div class="col-sm-9">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">SystemConfig</label>
-                                        <div class="col-sm-9">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">LANIP</label>
-                                        <div class="col-sm-3">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">ShelfID_SwitchID</label>
-                                        <div class="col-sm-3">
-                                            <p class="form-control-static"></p>
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <div style="display:none;" data-topic="inputDmiInfo">
                                     <div class="form-group">
@@ -242,6 +208,12 @@ desired effect
                                         <label class="col-sm-3 control-label">SystemConfig</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="addSystem" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">BIOS/EC</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static"></p>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -308,19 +280,18 @@ desired effect
         // ----------------------- dataInit -----------------------
         testImage = $("select[name='testImage']");
         testMachine = $("select[name='testMachine']");
-
-        pDmiInfo = $('div[data-topic="pDmiInfo"]');
-        pDmiInfo_product = $('div[data-topic="pDmiInfo"] p:eq(0)');
-        pDmiInfo_sn = $('div[data-topic="pDmiInfo"] p:eq(1)');
-        pDmiInfo_pn = $('div[data-topic="pDmiInfo"] p:eq(2)');
-        pDmiInfo_oem = $('div[data-topic="pDmiInfo"] p:eq(3)');
-        pDmiInfo_sys = $('div[data-topic="pDmiInfo"] p:eq(4)');
-        pDmiInfo_lanIp = $('div[data-topic="pDmiInfo"] p:eq(5)');
-        pDmiInfo_shelfId = $('div[data-topic="pDmiInfo"] p:eq(6)');
+        excecute = $("select[name='executeJob']");
 
         inputDmiInfo = $('div[data-topic="inputDmiInfo"]');
-        inputDmiInfo_lanIp = $('div[data-topic="inputDmiInfo"] p:eq(0)');
-        inputDmiInfo_shelfId = $('div[data-topic="inputDmiInfo"] p:eq(1)');
+
+        inputDmiInfo_product = $('div[data-topic="inputDmiInfo"] input:eq(0)');
+        inputDmiInfo_sn = $('div[data-topic="inputDmiInfo"] input:eq(1)');
+        inputDmiInfo_pn = $('div[data-topic="inputDmiInfo"] input:eq(2)');
+        inputDmiInfo_oem = $('div[data-topic="inputDmiInfo"] input:eq(3)');
+        inputDmiInfo_sys = $('div[data-topic="inputDmiInfo"] input:eq(4)');
+        inputDmiInfo_bios = $('div[data-topic="inputDmiInfo"] p:eq(0)');
+        inputDmiInfo_lanIp = $('div[data-topic="inputDmiInfo"] p:eq(1)');
+        inputDmiInfo_shelfId = $('div[data-topic="inputDmiInfo"] p:eq(2)');
 
         addCK = $('input[name="customer"]');
         addDefaultCK = $('input[name="customer"]:eq(0)');
@@ -336,11 +307,8 @@ desired effect
         addFormValidatorInit();
 
         // init form
-        addDefaultCK.iCheck('check');
         testMachine.val(null).trigger('change');
         testImage.val(null).trigger('change');
-        // pDmiInfo.css('display', 'none');
-        // inputDmiInfo.css('display', 'none');
         $('#addTaskForm').data('bootstrapValidator').destroy();
         addFormValidatorInit();
 
@@ -361,6 +329,8 @@ desired effect
     };
 
     function  select2Init() {
+        $('.select2').select2();
+
         testImage.select2({
                 width: "100%",
                 ajax: {
@@ -417,82 +387,40 @@ desired effect
                 machineId = machineId.substring(1, machineId.length - 1);
             }
             console.log(machineId);
-            // var data = e.params.data;
-            // console.log(data.text);
-            if (addDefaultCK.prop('checked')){
-                $.ajax({
-                    type: 'get',
-                    url: "../functions/atsController.php?do=readTestPCInfo",
-                    data: {machineId: machineId},
-                    dataType: 'json',
-                    success: function(result){
-                        pDmiInfo.css('display', 'block');
-                        pDmiInfo_product.html(result[0].product);
-                        pDmiInfo_sn.html(result[0].sn);
-                        pDmiInfo_pn.html(result[0].pn);
-                        pDmiInfo_oem.html(result[0].oem);
-                        pDmiInfo_sys.html(result[0].sys);
-                        pDmiInfo_lanIp.html(result[0].lanIp);
-                        pDmiInfo_shelfId.html(result[0].shelfId);
-                    },
-                    error: function () {
-                        toastr.error("Dmi Read Failed");
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: 'get',
-                    url: "../functions/atsController.php?do=readTestPCInfo",
-                    data: {machineId: machineId},
-                    dataType: 'json',
-                    success: function(result){
-                        inputDmiInfo_lanIp.html(result[0].lanIp);
-                        inputDmiInfo_shelfId.html(result[0].shelfId);
-                    },
-                    error: function () {
-                        toastr.error("Dmi Read Failed");
-                    }
-                });
 
-
-            }
+            $.ajax({
+                type: 'get',
+                url: "../functions/atsController.php?do=readTestPCInfo",
+                data: {machineId: machineId},
+                dataType: 'json',
+                success: function(result){
+                    inputDmiInfo.css('display', 'block');
+                    inputDmiInfo_product.val(result[0].product);
+                    inputDmiInfo_sn.val(result[0].sn);
+                    inputDmiInfo_pn.val(result[0].pn);
+                    inputDmiInfo_oem.val(result[0].oem);
+                    inputDmiInfo_sys.val(result[0].sys);
+                    inputDmiInfo_lanIp.html(result[0].lanIp);
+                    inputDmiInfo_shelfId.html(result[0].shelfId);
+                },
+                error: function () {
+                    toastr.error("Dmi Read Failed");
+                }
+            });
         });
         testMachine.on("select2:clear", function (e) {
-            if (addDefaultCK.prop('checked')){
-                pDmiInfo.css('display', 'none').find('p').html('');
-            } else {
-                inputDmiInfo.find('p').html('N/A');
-            }
+            inputDmiInfo.css('display', 'none').find('p').html('');
+            inputDmiInfo.find('input').val('');
+            $('#addTaskForm').data('bootstrapValidator').destroy();
+            addFormValidatorInit();
         });
 
     };
 
     function iCheckInit() {
-        $('input[name=customer]').iCheck({
-            radioClass: 'iradio_square-blue',
+        $('input[name=osA]').iCheck({
+            radioClass: 'iradio_square-yellow',
             increaseArea : '20%'
-        }).on('ifChecked', function () {
-            // alert($(this).val());
-            var vadio = $(this).val();
-            var machineId = testMachine.val();
-
-            $('#addTaskForm').data('bootstrapValidator').destroy();
-
-            if ("customer" === vadio) {
-                // alert(1);
-                pDmiInfo.css('display', 'none');
-                inputDmiInfo.css('display', 'block');
-
-                testMachine.val(null).trigger('change');
-                inputDmiInfo.find('input').val('');
-                inputDmiInfo.find('p').html('N/A');
-            } else if("default" === vadio) {
-                // alert(2);
-                testMachine.val(null).trigger('change');
-                inputDmiInfo.css('display', 'none');
-                pDmiInfo.css('display', 'none');
-            }
-            addFormValidatorInit();
         });
     }
 
@@ -519,6 +447,14 @@ desired effect
                     validators: {
                         notEmpty: {
                             message: 'The testImage is required and can\'t be empty'
+                        }
+                    }
+                },
+                executeJob: {
+                    message: 'the executeJob is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The executeJob is required and can\'t be empty'
                         }
                     }
                 },
@@ -631,6 +567,7 @@ desired effect
             var addMachine = testMachine.select2('data')[0].text;
             var testItem = "JumpStart";
             var addImage = testImage.select2('data')[0].text;
+            var exJob = excecute.select2('data')[0].text;
             console.log(addImage + ',' + addMachine);
             var testMachineVal = testMachine.val();
             var machineId = addMachine;
@@ -639,81 +576,43 @@ desired effect
                 machineId = machineId.substring(1, machineId.length - 1);
             }
 
-            if (addDefaultCK.prop('checked')){
-                // Use Ajax to submit form data
-                $.ajax({
-                    type : "get",
-                    url: "../functions/atsController.php?do=addTask",
-                    data: {
-                        testMachine: addMachine,
-                        machineId: machineId,
-                        testItem: testItem,
-                        testImage: addImage,
-                        customer: 'default',
-                        addProduct: pDmiInfo.find('p:eq(0)').text(),
-                        addSN: pDmiInfo.find('p:eq(1)').text(),
-                        addPN: pDmiInfo.find('p:eq(2)').text(),
-                        addOem:pDmiInfo.find('p:eq(3)').text(),
-                        addSystem: pDmiInfo.find('p:eq(4)').text(),
-                        lanIp: pDmiInfo.find('p:eq(5)').text(),
-                        shelf: pDmiInfo.find('p:eq(6)').text()
-                    },
-                    success : function (result) {
-                        console.log(result);
-                        if (result == "success") {
-                            toastr.success('add success!');
+            // Use Ajax to submit form data
+            $.ajax({
+                type : "get",
+                url: "../functions/atsController.php?do=addTask",
+                data: {
+                    testMachine: addMachine,
+                    machineId: machineId,
+                    testItem: testItem,
+                    exJob: exJob,
+                    testImage: addImage,
+                    osA: $("input[name='osA']:checked").val(),
+                    addProduct: inputDmiInfo.find('input:eq(0)').val(),
+                    addSN: inputDmiInfo.find('input:eq(1)').val(),
+                    addPN: inputDmiInfo.find('input:eq(2)').val(),
+                    addOem: inputDmiInfo.find('input:eq(3)').val(),
+                    addSystem: inputDmiInfo.find('input:eq(4)').val(),
+                    bios: inputDmiInfo.find('p:eq(0)').text(),
+                    lanIp: inputDmiInfo.find('p:eq(1)').text(),
+                    shelf: inputDmiInfo.find('p:eq(2)').text(),
+                },
+                success : function (result) {
+                    console.log(result);
+                    if (result == "success") {
+                        toastr.success('add success!');
 
-                        } else {
-                            toastr.error('add fail! try again ');
-                        }
-                    },
-                    error : function(xhr,status,error){
-                        toastr.error(xhr.status + ' add fail! ');
-                    },
-                    complete : function () {
-                        setTimeout("window.location.href=\"taskManagerForJump.php\";",3000);
-
+                    } else {
+                        toastr.error('add fail! try again ');
                     }
-                });
+                },
+                error : function(xhr,status,error){
+                    toastr.error(xhr.status + ' add fail! ');
+                },
+                complete : function () {
+                    setTimeout("window.location.href=\"taskManagerForJump.php\";",3000);
 
-            } else {
-                // Use Ajax to submit form data
-                $.ajax({
-                    type : "get",
-                    url: "../functions/atsController.php?do=addTask",
-                    data: {
-                        testMachine: addMachine,
-                        machineId: machineId,
-                        testItem: testItem,
-                        testImage: addImage,
-                        customer: 'customer',
-                        addProduct: inputDmiInfo.find('input:eq(0)').val(),
-                        addSN: inputDmiInfo.find('input:eq(1)').val(),
-                        addPN: inputDmiInfo.find('input:eq(2)').val(),
-                        addOem: inputDmiInfo.find('input:eq(3)').val(),
-                        addSystem: inputDmiInfo.find('input:eq(4)').val(),
-                        lanIp: inputDmiInfo.find('p:eq(0)').text(),
-                        shelf: inputDmiInfo.find('p:eq(1)').text(),
-                    },
-                    success : function (result) {
-                        console.log(result);
-                        if (result == "success") {
-                            toastr.success('add success!');
-
-                        } else {
-                            toastr.error('add fail! try again ');
-                        }
-                    },
-                    error : function(xhr,status,error){
-                        toastr.error(xhr.status + ' add fail! ');
-                    },
-                    complete : function () {
-                        setTimeout("window.location.href=\"taskManagerForJump.php\";",3000);
-
-                    }
-                });
-
-            }
+                }
+            });
         });
 
     };

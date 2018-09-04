@@ -3,17 +3,17 @@ drop table ats_testtask_info;
 CREATE TABLE `ats_testtask_info` (
   `TaskID` bigint(10) NOT NULL AUTO_INCREMENT,
   `TestImage` varchar(60) DEFAULT NULL,
-  `DMIModifyFlag` int(1) DEFAULT NULL,
+  `ExecuteJob` varchar(60) DEFAULT NULL,
+  `OSActivation` varchar(8) DEFAULT NULL,
   `DMI_ProductName` VARCHAR(30) NULL,
   `DMI_PartNumber` varchar(30) DEFAULT NULL,
   `DMI_SerialNumber` varchar(20) DEFAULT NULL,
   `DMI_OEMString` varchar(100) DEFAULT NULL,
   `DMI_SystemConfig` VARCHAR(20) NULL,
+  `BIOS_EC` VARCHAR(20) NULL,
   `TestItem` varchar(10) DEFAULT NULL,
   `TestMachine` varchar(30) DEFAULT NULL,
   `MachineID` int(7) DEFAULT NULL,
- -- `PowerID` int(1) DEFAULT NULL,
-  -- `LANID` int(1) DEFAULT NULL,
   `SwitchId` int(2) DEFAULT NULL,
   `LANIP` varchar(16) DEFAULT NULL,
   `ShelfID` int(1) DEFAULT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `ats_testtask_info` (
   `Tester` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`TaskID`),
   UNIQUE KEY `TaskID_UNIQUE` (`TaskID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET='latin1';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET='utf8';
 
 
 

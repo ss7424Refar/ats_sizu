@@ -64,17 +64,19 @@ function process4InitAddTaskForm(){
     $machineId=isset($_GET['machineId']) ? $_GET['machineId'] : '';
     $testItem=isset($_GET['testItem']) ? $_GET['testItem'] : '';
     $testImage=isset($_GET['testImage']) ? $_GET['testImage'] : '';
-    $customer=isset($_GET['customer']) ? ($_GET['customer'] =='default' ? 0 : 1) : '';
+    $exJob=isset($_GET['exJob']) ? $_GET['exJob'] : '';
+    $osA=isset($_GET['osA']) ? $_GET['osA'] : '';
     $addProduct=isset($_GET['addProduct']) ? $_GET['addProduct'] : '';
     $addSN=isset($_GET['addSN']) ? $_GET['addSN'] : '';
     $addPN=isset($_GET['addPN']) ? $_GET['addPN'] : '';
     $addOem=isset($_GET['addOem']) ? $_GET['addOem'] : '';
     $addSystem=isset($_GET['addSystem']) ? $_GET['addSystem'] : '';
+    $bios=isset($_GET['bios']) ? $_GET['bios'] : '';
     $lanIp=isset($_GET['lanIp']) ? $_GET['lanIp'] : '';
     $shelf=isset($_GET['shelf']) ? $_GET['shelf'] : '';
 
-    $addFormArray = array('testMachine'=> $testMachine, 'machineId'=> $machineId, 'testItem'=> $testItem, 'testImage'=>$testImage, 'customer'=>$customer, 'product'=>$addProduct,
-        'addSN'=>$addSN, 'addPN'=>$addPN, 'addOem'=>$addOem, 'addSystem'=> $addSystem, 'lanIp'=> $lanIp, 'shelf'=>$shelf);
+    $addFormArray = array('testMachine'=> $testMachine, 'machineId'=> $machineId, 'testItem'=> $testItem, 'testImage'=>$testImage, 'exJob'=> $exJob,  'osA'=>$osA, 'product'=>$addProduct,
+        'addSN'=>$addSN, 'addPN'=>$addPN, 'addOem'=>$addOem, 'addSystem'=> $addSystem, 'bios'=> $bios, 'lanIp'=> $lanIp, 'shelf'=>$shelf);
 
     return $addFormArray;
 }
