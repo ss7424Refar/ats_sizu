@@ -150,7 +150,7 @@ desired effect
                                     <button type="button" class="btn btn-primary btn-sm" id="task"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Task</button>
                                 </div>
 
-                                <div class="btn-group" role="group" style="display: none">
+                                <div class="btn-group" role="group" style="display: display">
 <!--                                    <button type="button" class="btn btn-success btn-sm" id="addTask" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus fa-fw"></i>&nbsp;Add</button>-->
                                     <button type="button" class="btn btn-warning btn-sm" id="assignTask"><i class="fa fa-wrench fa-fw"></i>&nbsp;Assign</button>
                                     <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>

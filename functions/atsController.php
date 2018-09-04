@@ -34,7 +34,7 @@ if(!empty($action)){
             $multiTask=isset($_GET['multiTask']) ? $_GET['multiTask'] : 0;
             $atsTask->checkAtsInfoByMultiTaskId($multiTask);
             break;
-        case 'assignAtsInfoByMultiTaskId':
+        case   'assignAtsInfoByMultiTaskId':
             $multiTask=isset($_GET['multiTask']) ? $_GET['multiTask'] : 0;
             $atsTask->assignAtsInfoByMultiTaskId($multiTask);
             break;
@@ -56,7 +56,7 @@ if(!empty($action)){
 
 function process4InitAddTaskForm(){
 
-    $testMachine=isset($_GET['testMachine']) ? $_GET['testMachine'] : '';
+    $testMachine=isset($_GET['testMachine']) ? $_GET['testMachine'] : '' ;
     if(!empty($testMachine)){
         $testMachine = substr($testMachine, 0, stripos($testMachine, "("));
     }
