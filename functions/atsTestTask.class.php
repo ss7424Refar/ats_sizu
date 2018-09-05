@@ -27,7 +27,7 @@ class atsTestTask{
                 $line++;
                 if ($line>=2){
                     if ($data[2] == $machineId){
-                        $tmpArray = array('product'=> $data[6], 'sn' => $data[7], 'pn' => $data[8], 'oem' => $data[9], 'sys'=> $data[10], 'lanIp' => $data[3], 'shelfId' => $data[0]);
+                        $tmpArray = array('product'=> $data[6], 'sn' => $data[7], 'pn' => $data[8], 'oem' => $data[9], 'sys'=> $data[10], 'lanIp' => $data[3], 'shelfId' => $data[0], 'bios'=>$data[11]);
                         array_push($jsonResult, $tmpArray);
                     }
                 }
@@ -183,6 +183,16 @@ class atsTestTask{
                     if(null == $value){
                         $value='NULL';
                     }
+                    if ('Fast Startup,Standby,Microsoft Edge' == $value){
+                        $value = 1;
+                    } elseif ('Fast Startup' == $value){
+                        $value = 2;
+                    } elseif ('BatteryLife' == $value){
+                        $value = 5;
+                    } elseif('Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab' == $value) {
+                        $value = 6;
+                    }
+
                     $str = $key. '='. $value.PHP_EOL;
                     file_put_contents($fileCreate, $str,FILE_APPEND);
 

@@ -125,11 +125,11 @@ desired effect
                 Task Manager
                 <small>For Auto Tool</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li>Task Manager</li>
-                <li class="active">Jump Start</li>
-            </ol>
+<!--            <ol class="breadcrumb">-->
+<!--                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>-->
+<!--                <li>Task Manager</li>-->
+<!--                <li class="active">Jump Start</li>-->
+<!--            </ol>-->
         </section>
 
         <!-- Main content -->
@@ -137,11 +137,11 @@ desired effect
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
-                        <div class="box-header  with-border" style="padding-top: 20px">
-                            <div class="callout callout-info">
-                                <strong><i class="fa fa-hand-o-right fa-fw"></i>&nbsp;Info: </strong><i>&nbsp;You can double click table row to see DMI info.</i>
-                            </div>
-                        </div>
+<!--                        <div class="box-header  with-border" style="padding-top: 20px">-->
+<!--                            <div class="callout callout-info">-->
+<!--                                <strong><i class="fa fa-hand-o-right fa-fw"></i>&nbsp;Info: </strong><i>&nbsp;You can double click table row to see detail info.</i>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div id="toolbar" class="btn-toolbar" role="toolbar">
@@ -150,10 +150,10 @@ desired effect
                                     <button type="button" class="btn btn-primary btn-sm" id="task"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Task</button>
                                 </div>
 
-                                <div class="btn-group" role="group" style="display: display">
+                                <div class="btn-group" role="group" style="display: none">
 <!--                                    <button type="button" class="btn btn-success btn-sm" id="addTask" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus fa-fw"></i>&nbsp;Add</button>-->
                                     <button type="button" class="btn btn-warning btn-sm" id="assignTask"><i class="fa fa-wrench fa-fw"></i>&nbsp;Assign</button>
-                                    <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
+<!--                                    <button type="button" class="btn btn-info btn-sm" id="editTask" data-toggle="modal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>-->
                                     <button type="button" class="btn btn-danger btn-sm" id="deleteTask"><i class="fa fa-close  fa-fw"></i>&nbsp;Delete</button>
 <!--                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-copy fa-fw"></i>&nbsp;Copy</button>-->
                                 </div>
@@ -252,7 +252,7 @@ desired effect
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">DMI INFO</h4>
+                            <h4 class="modal-title">Detail INFO</h4>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal ">
@@ -288,6 +288,24 @@ desired effect
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">System Config</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">BIOS/EC</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Excecute Job</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">OS Activation</label>
                                     <div class="col-sm-8">
                                         <p class="form-control-static"></p>
                                     </div>
@@ -485,6 +503,9 @@ desired effect
                     }
                     return "N/A";
                 }
+            }, {
+                field: 'Tester',
+                title: 'Tester'
             }
             ],
             rowStyle: function(row, index){
@@ -527,6 +548,14 @@ desired effect
                         $("#dmiInfo").find('p:eq(3)').html(result.row['DMI_PartNumber']);
                         $("#dmiInfo").find('p:eq(4)').html(result.row['DMI_OEMString']);
                         $("#dmiInfo").find('p:eq(5)').html(result.row['DMI_SystemConfig']);
+                        $("#dmiInfo").find('p:eq(6)').html(result.row['BIOS_EC']);
+                        if (result.row['ExecuteJob']){
+                            $("#dmiInfo").find('p:eq(7)').html(result.row['ExecuteJob']);
+                        } else {
+                            $("#dmiInfo").find('p:eq(7)').html('N/A');
+                        }
+
+                        $("#dmiInfo").find('p:eq(8)').html(result.row['OSActivation']);
                         $("#dmiInfo").modal("toggle");
                     }
                     else{

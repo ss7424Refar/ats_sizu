@@ -24,8 +24,8 @@ $conn = getDbConnect();
 // ------------------get_ats_testtask_info_Count & Info-------
 
 $tableHeader = "TaskID, TestMachine, TestImage, MachineID, ".
-    "TestItem,  TaskStatus, TestStartTime, TestEndTime, TestResult,".
-    "TestResultPath, ShelfID, SwitchId";
+    "TestItem,  TaskStatus, TestStartTime, TestEndTime, TestResult, ".
+    "TestResultPath, ShelfID, SwitchId, Tester ";
 
 if (!empty($taskIdSingle)) {
     $taskIdSingle = trim($taskIdSingle);

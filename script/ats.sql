@@ -11,7 +11,7 @@ CREATE TABLE `ats_testtask_info` (
   `DMI_OEMString` varchar(100) DEFAULT NULL,
   `DMI_SystemConfig` VARCHAR(20) NULL,
   `BIOS_EC` VARCHAR(20) NULL,
-  `TestItem` varchar(10) DEFAULT NULL,
+  `TestItem` varchar(20) DEFAULT NULL,
   `TestMachine` varchar(30) DEFAULT NULL,
   `MachineID` int(7) DEFAULT NULL,
   `SwitchId` int(2) DEFAULT NULL,

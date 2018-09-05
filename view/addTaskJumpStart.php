@@ -137,10 +137,10 @@ desired effect
         <!-- Main content -->
         <section class="content container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-1">
+                <div class="col-md-8 col-md-offset-2">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3> JumpStart Task Information</h3>
+                            <h3> Task Information</h3>
                         </div>
                         <form role="form"  class="form-horizontal form-group-sm" id="addTaskForm">
                             <div class="box-body">
@@ -158,6 +158,17 @@ desired effect
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Item</label>
+                                    <div class="col-sm-9" style="padding-top: 7px;padding-left: 14px">
+                                        <label style="margin-right: 19px">
+                                            <input type="radio" name="item" value="JumpStart" checked/> JumpStart
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="item" value="Recovery" /> Recovery
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: block" id="exJ">
                                     <label class="col-sm-3 control-label">Execute Job</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" name="executeJob">
@@ -309,6 +320,7 @@ desired effect
         // init form
         testMachine.val(null).trigger('change');
         testImage.val(null).trigger('change');
+        // excecute.val(null).trigger('change');
         $('#addTaskForm').data('bootstrapValidator').destroy();
         addFormValidatorInit();
 
@@ -329,7 +341,7 @@ desired effect
     };
 
     function  select2Init() {
-        $('.select2').select2();
+        $('.select2').select2({placeholder: 'Please Select', allowClear: true});
 
         testImage.select2({
                 width: "100%",
@@ -379,6 +391,10 @@ desired effect
 
 
         testMachine.on("select2:select",function(e){
+
+            $('#addTaskForm').data('bootstrapValidator').destroy();
+            addFormValidatorInit();
+
             console.log(testMachine.val());
             var testMachineVal = testMachine.val();
             var machineId = testMachine.select2('data')[0].text;
@@ -402,6 +418,7 @@ desired effect
                     inputDmiInfo_sys.val(result[0].sys);
                     inputDmiInfo_lanIp.html(result[0].lanIp);
                     inputDmiInfo_shelfId.html(result[0].shelfId);
+                    inputDmiInfo_bios.html(result[0].bios);
                 },
                 error: function () {
                     toastr.error("Dmi Read Failed");
@@ -418,9 +435,23 @@ desired effect
     };
 
     function iCheckInit() {
-        $('input[name=osA]').iCheck({
+        $('input[name=osA],input[name=item]').iCheck({
             radioClass: 'iradio_square-yellow',
             increaseArea : '20%'
+        });
+
+        $('input[name=item]').on('ifChecked', function () {
+            var vadio = $(this).val();
+
+            if ("JumpStart" === vadio){
+                $('#exJ').css('display', 'block');
+                $('input[name=osA]:eq(0)').iCheck('check');
+            } else{
+                $('#exJ').css('display', 'none');
+                $('input[name=osA]:eq(1)').iCheck('check');
+
+            }
+
         });
     }
 
@@ -565,9 +596,14 @@ desired effect
             var bv = $form.data('bootstrapValidator');
 
             var addMachine = testMachine.select2('data')[0].text;
-            var testItem = "JumpStart";
+            var exJob;
+            if ("JumpStart" === $("input[name='item']:checked").val()){
+                exJob = excecute.select2('data')[0].text;
+            } else {
+                exJob = '';
+            }
+
             var addImage = testImage.select2('data')[0].text;
-            var exJob = excecute.select2('data')[0].text;
             console.log(addImage + ',' + addMachine);
             var testMachineVal = testMachine.val();
             var machineId = addMachine;
@@ -583,7 +619,7 @@ desired effect
                 data: {
                     testMachine: addMachine,
                     machineId: machineId,
-                    testItem: testItem,
+                    testItem: $("input[name='item']:checked").val(),
                     exJob: exJob,
                     testImage: addImage,
                     osA: $("input[name='osA']:checked").val(),
@@ -594,7 +630,7 @@ desired effect
                     addSystem: inputDmiInfo.find('input:eq(4)').val(),
                     bios: inputDmiInfo.find('p:eq(0)').text(),
                     lanIp: inputDmiInfo.find('p:eq(1)').text(),
-                    shelf: inputDmiInfo.find('p:eq(2)').text(),
+                    shelf: inputDmiInfo.find('p:eq(2)').text()
                 },
                 success : function (result) {
                     console.log(result);
