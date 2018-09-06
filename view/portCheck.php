@@ -60,7 +60,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <!--<body class="hold-transition skin-blue sidebar-mini">-->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <div class="wrapper">
     <!-- Main Header -->
     <?php include 'header.php';?>
@@ -114,11 +114,11 @@ desired effect
                 Port Status
                 <small>For Check</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>
+<!--            <ol class="breadcrumb">-->
+<!--                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>-->
 <!--                <li>Auto Tool</li>-->
-                <li class="active">Port Status</li>
-            </ol>
+<!--                <li class="active">Port Status</li>-->
+<!--            </ol>-->
         </section>
 
         <!-- Main content -->
@@ -156,7 +156,7 @@ desired effect
                                         <tbody id="content">
                                             <tr><td colspan="12">
                                                 <span class="text-warning">
-                                                    <i><i class="fa fa-spinner fa-pulse" style="color: #0A8CC6"></i> No data detect, Please wait 10s ...</i>
+                                                    <i><i class="fa fa-spinner fa-pulse" style="color: #0A8CC6"></i> Test data detecting, Please wait 10s ...</i>
                                                 </span>
                                                 </td></tr>
                                         </tbody>
@@ -251,6 +251,9 @@ desired effect
                             $('#content tr:last').append('<td>busying</td>');
                         }
                     }
+                    // else {
+                    //     $('#content').append('<tr><i> No Data Detected ...</i></tr>');
+                    // }
 
                 }
 

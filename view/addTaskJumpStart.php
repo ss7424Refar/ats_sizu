@@ -72,7 +72,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <!--<body class="hold-transition skin-blue layout-boxed">-->
 <div class="wrapper">
     <!-- Main Header -->
@@ -243,7 +243,7 @@ desired effect
                             </div>
                             <div class="box-footer">
                                 <div class="col-md-10">
-                                    <a class="btn btn-default pull-right" onclick="window.location.href='atsIndex.php';">Back</a>
+                                    <a class="btn btn-default pull-right" onclick="window.location.href='../../tpms/index.php';">Back</a>
                                 </div>
                                 <div class="col-md-1">
                                     <button type="submit" class="btn btn-info">Submit</button>

@@ -70,7 +70,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <!--<body class="hold-transition skin-blue sidebar-mini">-->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <div class="wrapper">
     <!-- Main Header -->
     <?php include 'header.php';?>
@@ -314,7 +314,7 @@ desired effect
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
                         </div>
                     </div>
                 </div>
@@ -482,6 +482,8 @@ desired effect
                         return "Cancelled";
                     }else if (4==value){
                         return "Abnormal End";
+                    }else if (5==value){
+                        return "expired";
                     }
                     return "N/A";
                 }
@@ -495,11 +497,11 @@ desired effect
                 field: 'TestResult',
                 title: 'Test Result',
                 formatter: function(value, row, index){
-                    var path = "\\\\172.30.52.28\\JSDataBK\\#Temp\\\@ATS_Results\\Task_"+ row['ShelfID'] + "_" + row.SwitchId + "_" + row.TaskID + "\\";
+                    var path = "\\\\172.30.52.28\\JSDataBK\\#Temp\\\@ATS_Results\\Task_"+ row['ShelfID'] + "_" + row.SwitchId + "_" + row.TaskID;
                     if("Fail"==value){
                         return '<a href='+ path +'><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
                     } else if("Pass"==value){
-                        return '<a href='+ path +'><i class="fa fa-times fa-fw"></i>&nbsp;' + value + '</a>';
+                        return '<a href='+ path +'><i class="fa fa-check fa-fw"></i>&nbsp;' + value + '</a>';
                     }
                     return "N/A";
                 }
