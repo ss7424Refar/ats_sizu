@@ -47,7 +47,7 @@ if (file_exists($detectFileName)) {
 
     while ($hasTime) {
         // 10 sec
-        sleep(10);
+        sleep(5);
 
         $fileTime = exec('stat -c %Y '. $detectFileName); //unix way
 //        echo $fileTime. 'hhh'. time();

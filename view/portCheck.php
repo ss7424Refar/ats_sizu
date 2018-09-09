@@ -87,7 +87,7 @@ desired effect
                 </li>
                 <li class="header">INFO</li>
                 <li class="treeview" >
-                    <a href="#"><i class="fa fa-link"></i> <span>Task Manager</span>
+                    <a href="#"><i class="fa fa-edit"></i> <span>Task Manager</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -154,9 +154,9 @@ desired effect
                                             </tr>
                                         </thead>
                                         <tbody id="content">
-                                            <tr><td colspan="12">
+                                            <tr><td colspan="5">
                                                 <span class="text-warning">
-                                                    <i><i class="fa fa-spinner fa-pulse" style="color: #0A8CC6"></i> Test data detecting, Please wait 10s ...</i>
+                                                    <i><i class="fa fa-spinner fa-pulse" style="color: #0A8CC6"></i> Test data detecting, Please wait 5s ...</i>
                                                 </span>
                                                 </td></tr>
                                         </tbody>
@@ -216,7 +216,7 @@ desired effect
         {
 
             // 打开一个 web socket
-            // var ws = new WebSocket("ws://192.168.0.100:8080/");
+            // var ws = new WebSocket("ws://192.168.0.108:8084/");
             var ws = new WebSocket("ws://172.30.52.43:8084/");
 
             ws.onopen = function()
@@ -239,8 +239,9 @@ desired effect
                     // table
                     console.log(response.result);
                     var tableData = response.result;
+
                     $('#content').empty();
-                    if (null != tableData){
+                    if (0 != tableData.length){
                         for (var i = 0; i < tableData.length; i++) {
                             $('#content').append('<tr></tr>');
                             // $('#content tr:last').append('<td>' + tableData[i].id + '</td>');
@@ -248,12 +249,13 @@ desired effect
                             $('#content tr:last').append('<td>' + tableData[i].machineId + '</td>');
                             $('#content tr:last').append('<td>' + tableData[i].LANIP + '</td>');
                             $('#content tr:last').append('<td>' + tableData[i].ShelfId_SwitchId + '</td>');
-                            $('#content tr:last').append('<td>busying</td>');
+                            $('#content tr:last').append('<td>inUse</td>');
                         }
                     }
-                    // else {
-                    //     $('#content').append('<tr><i> No Data Detected ...</i></tr>');
-                    // }
+                    else {
+                        $('#content').append('<tr></tr>');
+                        $('#content tr:last').append('<td><i style="color: green"> No Data Detected ... The Shelf is not inUse</i></td>');
+                    }
 
                 }
 

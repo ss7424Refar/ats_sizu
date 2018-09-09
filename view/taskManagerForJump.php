@@ -97,7 +97,7 @@ desired effect
                 </li>
                 <li class="header">INFO</li>
                 <li class="treeview active" >
-                    <a href="#"><i class="fa fa-link"></i> <span>Task Manager</span>
+                    <a href="#"><i class="fa fa-edit"></i> <span>Task Manager</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>

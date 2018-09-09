@@ -30,9 +30,6 @@ while ($data = fgetcsv($file, 0, '=')) {
     if ('TestResult' == $data[0]) {
         $tmpArray['TestResult'] = $data[1];
     }
-//    else if ('TestResultPath' == $data[0]) {
-//        $tmpArray['TestResultPath'] = $data[1];
-//    }
     else if ('TestEndTime' == $data[0]) {
         $tmpArray['TestEndTime'] = $data[1];
     } else if ('TaskStatus' == $data[0]) {

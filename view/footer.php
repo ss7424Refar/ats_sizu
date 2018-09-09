@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-        <b>Version: </b>&nbsp;1.0.0.0_<?php echo date("Y-m-d") ;?>
+        <b>Version: </b>&nbsp;1.1.0.0_<?php echo date("Y-m-d") ;?>
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2018 <a target="_blank" href="http://172.30.52.44/hdwiki/">TIH.swv</a>.</strong> All rights reserved.

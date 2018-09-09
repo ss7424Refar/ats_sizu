@@ -144,7 +144,7 @@ desired effect
               <div class="box-header with-border">
                   <h3 class="box-title">Add</h3>
               </div>
-              <form action="#" method="post">
+              <form action="#" method="get">
                   <div class="box-body">
                       <button type="button" class="btn btn-info btn-block" data-toggle="collapse"
                               data-target="#collapseO">
