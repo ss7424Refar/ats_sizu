@@ -91,7 +91,7 @@ desired effect
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
+                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Auto Tool</a></li>
 <!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
                     </ul>
                 </li>

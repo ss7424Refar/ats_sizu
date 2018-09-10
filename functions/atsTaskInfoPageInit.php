@@ -10,7 +10,7 @@ session_start();
 require_once 'atsDbConnect.php';
 
 $user = isset($_SESSION['transToAts']) ? $_SESSION['transToAts'] : '';
-//$user = 'admin';
+
 $conn = getDbConnect();
 $sql = "select t1.login, t1.email, t2.description from users t1 left join roles t2 on t1.role_id = t2.id where t1.login='{$user}'; ";
 $resultDetail = mysqli_query($conn,$sql);
@@ -47,9 +47,9 @@ if (!empty($taskIdSingle)) {
     $sqlDetail = "select $tableHeader from ats_testtask_info where TaskID = $taskIdSingle";
 
 } else {
-    $sqlCount = "select count(*) from ats_testtask_info where Tester='{$user}'";
+    $sqlCount = "select count(*) from ats_testtask_info ". $searchCondition;
 //    $sqlDetail = "select $tableHeader from ats_testtask_info where  TaskID >= (select TaskID from ats_testtask_info order by TaskID limit $offset, 1) limit $pageSize ";
-    $sqlDetail = "select $tableHeader from ats_testtask_info where Tester='{$user}' order by TaskID desc limit $offset, $pageSize;";
+    $sqlDetail = "select $tableHeader from ats_testtask_info ". $searchCondition ." order by TaskID desc limit $offset, $pageSize;";
 }
 $resultCount = mysqli_query($conn,$sqlCount);
 $total = mysqli_fetch_array($resultCount)[0];

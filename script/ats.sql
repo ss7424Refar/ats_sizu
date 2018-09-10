@@ -2,7 +2,7 @@ drop table ats_testtask_info;
 -- ats_testtask_info
 CREATE TABLE `ats_testtask_info` (
   `TaskID` bigint(10) NOT NULL AUTO_INCREMENT,
-  `TestImage` varchar(60) DEFAULT NULL,
+  `TestImage` varchar(100) DEFAULT NULL,
   `ExecuteJob` varchar(60) DEFAULT NULL,
   `OSActivation` varchar(8) DEFAULT NULL,
   `DMI_ProductName` VARCHAR(30) NULL,
@@ -65,3 +65,6 @@ CREATE EVENT IF NOT EXISTS  ats_update_expired
   on schedule EVERY 1 DAY STARTS date_add(date( ADDDATE(curdate(),1)),interval 1 hour)
 do update ats_testtask_info set TaskStatus=5 where TIMESTAMPDIFF(hour, TestStartTime, now()) >= 24 and TaskStatus = '1';
 
+-- SET SQL_SAFE_UPDATES = 0;
+
+SET SQL_SAFE_UPDATES = 0;

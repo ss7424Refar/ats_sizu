@@ -9,7 +9,7 @@ session_start();
 
 require_once 'atsTestTask.class.php';
 $action=isset($_GET['do']) ? $_GET['do'] : '';
-$user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+$user = isset($_SESSION['transToAts']) ? $_SESSION['transToAts'] : '';
 
 // handler
 if(!empty($action)){

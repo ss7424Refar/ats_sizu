@@ -94,7 +94,7 @@ desired effect
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Jump Start</a></li>
+                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Auto Tool</a></li>
 <!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
                     </ul>
                 </li>
@@ -106,7 +106,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Jump Start</a></li>
+                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Auto Tool</a></li>
                     </ul>
                 </li>
                 <li class="header">CHECK OUT</li>
@@ -125,7 +125,7 @@ desired effect
         <section class="content-header">
             <h1>
                 Add Task
-                <small>For Jump Start</small>
+                <small> For Auto Tool</small>
             </h1>
 <!--            <ol class="breadcrumb">-->
 <!--                <li><a href="atsIndex.php"><i class="fa fa-dashboard"></i> Home</a></li>-->
