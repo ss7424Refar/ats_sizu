@@ -254,7 +254,7 @@ desired effect
                     }
                     else {
                         $('#content').append('<tr></tr>');
-                        $('#content tr:last').append('<td><i style="color: green"> No Data Detected ... The Shelf is not inUse</i></td>');
+                        $('#content tr:last').append('<td colspan="5"><span><i style="color: green"> The Shelf is not inUse... </i></span></td>');
                     }
 
                 }

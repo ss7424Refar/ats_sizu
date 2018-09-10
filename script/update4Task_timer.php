@@ -54,7 +54,7 @@ while ($row = $resultDetail->fetch_assoc()) {
 function sendMail($to, $info){
 
     $date = date("Y-m-d");
-    $mailTitle = '[SWV][Auto Test System][' . $date . ']You Need to run the baseline image';
+    $mailTitle = '[ATS][' . $date . ']['. $info['TestItem'] .']Test result is '. $info['TestResult'];
 
     $htmlBody = '<html>' .
         '	<head>' .
@@ -74,8 +74,8 @@ function sendMail($to, $info){
         '	</head>' .
         '	<body>' .
         '		<p>Dear ' . $info['Tester'] . ',</p>' .
-        '		<p>Since OEM image test result is NOT passed the target metrics, please find your target machine on test shelf and click OK to start running baseline image.</p>' .
-        '		<p style="font-size:12px;color:red"><i>The Jumpstart task as below.</i></p>' .
+        '		<p>' . '[' .  $info['TestItem'] . ']' . ' test task is '. $info['TestResult'] .'.</p>'.
+        '		<p style="font-size:12px;color:red"><i>Test task as below.</i></p>' .
         '	<table>' .
         '		<tr bgcolor="#B8BFD8">' .
         '			<th>TaskID</th><th>Test Machine</th><th>Test Image</th><th>Machine ID</th><th>Assigned Task</th>' .

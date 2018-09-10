@@ -10,7 +10,7 @@ session_start();
 require_once 'atsDbConnect.php';
 
 $user = isset($_SESSION['transToAts']) ? $_SESSION['transToAts'] : '';
-
+//$user = 'admin';
 $conn = getDbConnect();
 $sql = "select t1.login, t1.email, t2.description from users t1 left join roles t2 on t1.role_id = t2.id where t1.login='{$user}'; ";
 $resultDetail = mysqli_query($conn,$sql);

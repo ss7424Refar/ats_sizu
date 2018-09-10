@@ -66,9 +66,10 @@ $to = $email['email'];
  * baseLine send mail
  *
  */
-if("baseline" == $_GET['do']){
+if("baseline" == (isset($_GET['do'])? $_GET['do'] : '')){
 
-    $mailTitle = '[SWV][Auto Test System][' . $date . ']You Need to run the baseline image';
+
+    $mailTitle = '[ATS][' . $date . ']'. $rowsResult[0]['TestItem'] .'You Need to run the baseline image';
 
     $htmlBody = '<html>' .
         '	<head>' .
@@ -91,7 +92,7 @@ if("baseline" == $_GET['do']){
         '		<p>Since OEM image test result is NOT passed the target metrics, please find your target machine on test shelf and click OK to start running baseline image.</p>' .
         '		<p style="font-size:12px;color:red"><i>The Jumpstart task as below.</i></p>' .
         '	<table>' .
-        '		<tr bgcolor="#B8BFD8">' .
+        '		<tr bgcolor="#FAF2CC">' .
         '			<th>TaskID</th><th>Test Machine</th><th>Test Image</th><th>Machine ID</th><th>Assigned Task</th>' .
         '			<th>Task Status</th><th>StartDate</th><th>FinishDate</th><th>Test Result</th>' .
         '		</tr>' .
@@ -111,10 +112,11 @@ if("baseline" == $_GET['do']){
         'taskManagerForJump.php">Link To ATS</a></p>' .
         '</html>';
 
-    sendMail($mailTitle, $to, $htmlBody);
+    echo  sendMail($mailTitle, $to, $htmlBody);
 
 } else {
-    $mailTitle = '[SWV][Auto Test System][' . $date . ']';
+
+    $mailTitle = '[ATS][' . $date . ']['. $rowsResult[0]['TestItem'] .']Test result is '. $rowsResult[0]['TestResult'];
 
     $htmlBody = '<html>' .
         '	<head>' .
@@ -134,10 +136,10 @@ if("baseline" == $_GET['do']){
         '	</head>' .
         '	<body>' .
         '		<p>Dear ' . $rowsResult[0]['Tester'] . ',</p>' .
-        '		<p>Since OEM image test result is NOT passed the target metrics, please find your target machine on test shelf and click OK to start running baseline image.</p>' .
-        '		<p style="font-size:12px;color:red"><i>The Jumpstart task as below.</i></p>' .
+        '		<p>' . '[' .  $rowsResult[0]['TestItem'] . ']' . ' test result is '. $rowsResult[0]['TestResult'] .'.</p>'.
+        '		<p style="font-size:12px;color:red"><i>Test task as below.</i></p>' .
         '	<table>' .
-        '		<tr bgcolor="#B8BFD8">' .
+        '		<tr bgcolor="#FAF2CC">' .
         '			<th>TaskID</th><th>Test Machine</th><th>Test Image</th><th>Machine ID</th><th>Assigned Task</th>' .
         '			<th>Task Status</th><th>StartDate</th><th>FinishDate</th><th>Test Result</th>' .
         '		</tr>' .
@@ -157,7 +159,7 @@ if("baseline" == $_GET['do']){
         'taskManagerForJump.php">Link To ATS</a></p>' .
         '</html>';
 
-    sendMail($mailTitle, $to, $htmlBody);
+    echo  sendMail($mailTitle, $to, $htmlBody);
 
 }
 
@@ -176,7 +178,7 @@ function sendMail($mailTitle, $to, $htmlBody){
         ->setFrom(array(Mail_FROM))
         ->setTo($to)
         ->setCc(json_decode(MAIL_CC, true))
-        ->setBody($htmlBody, 'text/html', 'utf-8');;
+        ->setBody($htmlBody, 'text/html', 'utf-8');
 
     // Send the message
     $result = $mailer->send($message);
