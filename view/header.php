@@ -6,11 +6,11 @@
  * Time: 下午1:10
  */
 session_start();
-//if (!isset($_SESSION['transToAts']) || "" == $_SERVER['HTTP_REFERER']){
-//    header('Location:../../tpms/index2.php');
-//    exit();
-//}
-$_SESSION['user'] = 'admin';
+if (!isset($_SESSION['transToAts']) || "" == $_SERVER['HTTP_REFERER']){
+    header('Location:../../tpms/index2.php');
+    exit();
+}
+//$_SESSION['user'] = 'admin';
 //if (!isset($_SESSION['user'])){
 //    header('Location:404.html');
 //    exit();
@@ -141,7 +141,7 @@ $_SESSION['user'] = 'admin';
                         <img src="../resource/img/sizu.gif" class="user-image" alt="User Image">
 <!--                        <img src="../dist/img/user3-128x128.jpg" class="user-image" alt="User Image">-->
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs"><?php echo $_SESSION['user']?></span>
+                        <span class="hidden-xs"><?php echo $_SESSION['transToAts']?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
