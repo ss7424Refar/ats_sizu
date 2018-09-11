@@ -73,32 +73,16 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="treeview" >
-                    <a href="#"><i class="fa fa-wrench"></i> <span>Add Task</span>
-                        <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                <li>
+                    <a href="addTaskJumpStart.php">
+                        <i class="fa fa-plus"></i> <span><i class="fa fa-circle-o  text-blue" style="margin-right: 5px"></i>&nbsp;Add Task</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Auto Tool</a></li>
-<!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
-                    </ul>
                 </li>
-                <li class="header">INFO</li>
-                <li class="treeview" >
-                    <a href="#"><i class="fa fa-edit"></i> <span>Task Manager</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Auto Tool</a></li>
-                    </ul>
+                <li>
+                    <a href="taskManagerForJump.php"><i class="fa fa-edit"></i> <span><i class="fa fa-circle-o  text-red" style="margin-right: 5px"></i>&nbsp;Task Manager</span> </a>
                 </li>
-                <li class="header">CHECK OUT</li>
-                <li class="active">
-                    <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
+                <li  class="active">
+                    <a href="portCheck.php"><i class="fa fa-link"></i> <span><i class="fa fa-circle-o text-yellow" style="margin-right: 5px"></i>&nbsp;Port Status</span> </a>
                 </li>
 
             </ul>

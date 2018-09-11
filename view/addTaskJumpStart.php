@@ -86,32 +86,16 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="treeview active" >
-                    <a href="addTaskJumpStart.php"><i class="fa fa-wrench"></i> <span>Add Task</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+                <li class="active">
+                    <a href="addTaskJumpStart.php">
+                        <i class="fa fa-plus"></i> <span><i class="fa fa-circle-o  text-blue" style="margin-right: 5px"></i>&nbsp;Add Task</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="addTaskJumpStart.php"><i class="fa fa-circle-o text-yellow"></i> Auto Tool</a></li>
-<!--                        <li><a href="addTaskTreboot.php"><i class="fa fa-circle-o text-aqua"></i> Treboot</a></li>-->
-                    </ul>
                 </li>
-                <li class="header">INFO</li>
-                <li class="treeview" >
-                    <a href="#"><i class="fa fa-edit"></i> <span>Task Manager</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="taskManagerForJump.php"><i class="fa fa-circle-o text-red"></i> Auto Tool</a></li>
-                    </ul>
-                </li>
-                <li class="header">CHECK OUT</li>
                 <li>
-                    <a href="portCheck.php"><i class="fa fa-link"></i> <span>Port Status</span></a>
+                    <a href="taskManagerForJump.php"><i class="fa fa-edit"></i> <span><i class="fa fa-circle-o  text-red" style="margin-right: 5px"></i>&nbsp;Task Manager</span> </a>
+                </li>
+                <li>
+                    <a href="portCheck.php"><i class="fa fa-link"></i> <span><i class="fa fa-circle-o text-yellow" style="margin-right: 5px"></i>&nbsp;Port Status</span> </a>
                 </li>
             </ul>
             <!-- /.sidebar-menu -->
@@ -172,10 +156,10 @@ desired effect
                                     <label class="col-sm-3 control-label">Execute Job</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" name="executeJob">
+                                            <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
                                             <option>Fast Startup,Standby,Microsoft Edge</option>
                                             <option>Fast Startup</option>
                                             <option>BatteryLife</option>
-                                            <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
                                         </select>
                                     </div>
                                 </div>
@@ -361,10 +345,28 @@ desired effect
                     },
                     cache: false
                 },
-                placeholder: 'Please Select',
+                // placeholder: 'Please Select',
                 allowClear: true
             }
         );
+        // 设置出事值
+        $.ajax({
+            url: "../functions/atsController.php?do=getImageName4Select2",
+            dataType:'json',
+            success: function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+
+                    if ('Keep Current Image' === item.text){
+                        var option = new Option(item.id, item.text, true, true);
+                        testImage.append(option);
+                    }
+
+                }
+            }
+
+        });
 
         testMachine.select2({
             width: "100%",
@@ -388,6 +390,7 @@ desired effect
             placeholder:'Please Select',
             allowClear:true
         });
+
 
 
         testMachine.on("select2:select",function(e){

@@ -49,3 +49,7 @@ define('SMTP_HOST', '172.30.52.43');
 define('SMTP_PORT', 25);
 define('MAIL_CC', json_encode(array('wanliang.xu@toshiba-tih.com', 'lin.zhu@toshiba-tih.com', 'lin.qiu@toshiba-tih.com', 'bin.yan@toshiba-tih.com', 'xiaoyan.ding@toshiba-tih.com')));
 define('Mail_FROM', 'ats_swv@toshiba-tih.com');
+
+/*
+ * other
+ */
