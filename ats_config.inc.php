@@ -53,3 +53,4 @@ define('Mail_FROM', 'ats_swv@toshiba-tih.com');
 /*
  * other
  */
+define('EXPIRED', 'Expired');

@@ -38,13 +38,18 @@ $sql = "select * from ats_testtask_info  where TIMESTAMPDIFF(hour, TestStartTime
 $resultDetail = mysqli_query($conn, $sql);
 while ($row = $resultDetail->fetch_assoc()) {
 
-    mysqli_query($conn, "update ats_testtask_info set TaskStatus=5, TestEndTime = now() where TaskID = ". $row['TaskID'] );
+    mysqli_query($conn, "update ats_testtask_info set TaskStatus=5, TestEndTime = now(), TestResult='N/A' where TaskID = ". $row['TaskID'] );
 
     $tester = $row['Tester'];
     $result = mysqli_query($conn, "select email from users where login='". $tester ."'");
     $email = mysqli_fetch_assoc($result);
 
-    sendMail($email['email'], $row);
+    $query = mysqli_query($conn, "select * from ats_testtask_info where  TaskID = ".  $row['TaskID']) ;
+    $newRow = mysqli_fetch_assoc($query);
+
+    sendMail($email['email'], $newRow);
+
+    renameFile($newRow);
 
 }
 
@@ -54,7 +59,7 @@ while ($row = $resultDetail->fetch_assoc()) {
 function sendMail($to, $info){
 
     $date = date("Y-m-d");
-    $mailTitle = '[ATS][' . $date . ']['. $info['TestItem'] .']Test result is '. $info['TestResult'];
+    $mailTitle = '[ATS][' . $date . ']['. $info['TestItem'] .']Test result is expired';
 
     $htmlBody = '<html>' .
         '	<head>' .
@@ -74,10 +79,10 @@ function sendMail($to, $info){
         '	</head>' .
         '	<body>' .
         '		<p>Dear ' . $info['Tester'] . ',</p>' .
-        '		<p>' . '[' .  $info['TestItem'] . ']' . ' test task is '. $info['TestResult'] .'.</p>'.
+        '		<p>' . '[' .  $info['TestItem'] . ']' . ' test task is expired.</p>'.
         '		<p style="font-size:12px;color:red"><i>Test task as below.</i></p>' .
         '	<table>' .
-        '		<tr bgcolor="#B8BFD8">' .
+        '		<tr bgcolor="#FAF2CC">' .
         '			<th>TaskID</th><th>Test Machine</th><th>Test Image</th><th>Machine ID</th><th>Assigned Task</th>' .
         '			<th>Task Status</th><th>StartDate</th><th>FinishDate</th><th>Test Result</th>' .
         '		</tr>' .
@@ -90,7 +95,7 @@ function sendMail($to, $info){
         '			<td>expired</td>' .
         '			<td>' . $info['TestStartTime'] . '</td>' .
         '			<td>' . $info['TestEndTime'] . '</td>' .
-        '			<td>' . 'N/A' . '</td>' .
+        '			<td>' . $info['TestResult']  . '</td>' .
         '		</tr>' .
         '	</table></body>' .
         '<p style="margin-top: 15px">Click here to view task list:&nbsp;&nbsp;&nbsp;<a style="font-size:12px;" href="http://172.30.52.43/ats/view/' .
@@ -112,5 +117,18 @@ function sendMail($to, $info){
     // Send the message
     $result = $mailer->send($message);
     echo date("Y-m-d H:i:s", time()) . ' : ' . $result. '<br>';
+
+}
+
+function renameFile($newRow){
+    $filePath = ATS_TASKS_PATH;
+    $findName = ATS_TMP_TASKS_HEADER. $newRow['ShelfID']. ATS_FILE_UNDERLINE. $newRow['SwitchId'].
+        ATS_FILE_UNDERLINE. $newRow['TaskID']. ATS_FILE_suffix;
+
+    $newFileName = ATS_TMP_TASKS_HEADER. $newRow['ShelfID']. ATS_FILE_UNDERLINE. $newRow['SwitchId'].
+        ATS_FILE_UNDERLINE. $newRow['TaskID'].ATS_FILE_UNDERLINE.EXPIRED.ATS_FILE_suffix;
+
+    echo "Rename==>" . $findName. " to ". $newFileName;
+    exec('mv '. $filePath. $findName. ' '. $filePath.$newFileName );
 
 }
