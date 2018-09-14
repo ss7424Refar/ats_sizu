@@ -226,11 +226,11 @@ class atsTestTask{
         $switchId = explode("_",$addTaskFormData['shelf'])[1];
         $shelfId = explode("_",$addTaskFormData['shelf'])[0];
 
-        $columns = "`TaskID`, `TestImage`, `ExecuteJob`, `OSActivation`,  `DMI_PartNumber`, `DMI_SerialNumber`, `DMI_ProductName`,".
+        $columns = "`TaskID`, `TestImage`, `ExecuteJob`, `run_baseline`, `OSActivation`,  `DMI_PartNumber`, `DMI_SerialNumber`, `DMI_ProductName`,".
             "`DMI_OEMString`, `DMI_SystemConfig`, `BIOS_EC`, `TestItem`, `TestMachine`, `MachineID`, `LANIP`, `SwitchId`, ".
             "`ShelfID`, `TestResult`, `TestResultPath`, `TestStartTime`, `TestEndTime`, `TaskStatus`, `Tester`";
         $sql = "insert into $this->atsTaskInfoTable ($columns)".
-                " values (NULL, '{$addTaskFormData['testImage']}', '{$addTaskFormData['exJob']}', '{$addTaskFormData['osA']}', '{$addTaskFormData['addPN']}',".
+                " values (NULL, '{$addTaskFormData['testImage']}', '{$addTaskFormData['exJob']}', '{$addTaskFormData['rb']}', '{$addTaskFormData['osA']}', '{$addTaskFormData['addPN']}',".
                 " '{$addTaskFormData['addSN']}', '{$addTaskFormData['product']}', '{$addTaskFormData['addOem']}',  '{$addTaskFormData['addSystem']}', '{$addTaskFormData['bios']}', '{$addTaskFormData['testItem']}', '{$addTaskFormData['testMachine']}', ".
                 "'{$addTaskFormData['machineId']}', '{$addTaskFormData['lanIp']}', '{$switchId}', '{$shelfId}',  NULL,  NULL, NULL, NULL, '0', '{$user}')";
 

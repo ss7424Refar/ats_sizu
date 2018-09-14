@@ -4,6 +4,7 @@ CREATE TABLE `ats_testtask_info` (
   `TaskID` bigint(10) NOT NULL AUTO_INCREMENT,
   `TestImage` varchar(100) DEFAULT NULL,
   `ExecuteJob` varchar(60) DEFAULT NULL,
+  `run_baseline` varchar(8) DEFAULT NULL,
   `OSActivation` varchar(8) DEFAULT NULL,
   `DMI_ProductName` VARCHAR(30) NULL,
   `DMI_PartNumber` varchar(30) DEFAULT NULL,

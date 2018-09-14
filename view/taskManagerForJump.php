@@ -289,6 +289,12 @@ desired effect
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Run Baseline</label>
+                                    <div class="col-sm-8">
+                                        <p class="form-control-static"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label">OS Activation</label>
                                     <div class="col-sm-8">
                                         <p class="form-control-static"></p>
@@ -537,11 +543,13 @@ desired effect
                         $("#dmiInfo").find('p:eq(6)').html(result.row['BIOS_EC']);
                         if (result.row['ExecuteJob']){
                             $("#dmiInfo").find('p:eq(7)').html(result.row['ExecuteJob']);
+                            $("#dmiInfo").find('p:eq(8)').html(result.row['run_baseline']);
                         } else {
                             $("#dmiInfo").find('p:eq(7)').html('N/A');
+                            $("#dmiInfo").find('p:eq(8)').html('N/A');
                         }
 
-                        $("#dmiInfo").find('p:eq(8)').html(result.row['OSActivation']);
+                        $("#dmiInfo").find('p:eq(9)').html(result.row['OSActivation']);
                         $("#dmiInfo").modal("toggle");
                     }
                     else{

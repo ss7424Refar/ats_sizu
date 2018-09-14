@@ -142,7 +142,7 @@ desired effect
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Item</label>
+                                    <label class="col-sm-3 control-label">Test Item</label>
                                     <div class="col-sm-9" style="padding-top: 7px;padding-left: 14px">
                                         <label style="margin-right: 19px">
                                             <input type="radio" name="item" value="JumpStart" checked/> JumpStart
@@ -152,15 +152,28 @@ desired effect
                                         </label>
                                     </div>
                                 </div>
-                                <div class="form-group" style="display: block" id="exJ">
-                                    <label class="col-sm-3 control-label">Execute Job</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control select2" name="executeJob">
-                                            <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
-                                            <option>Fast Startup,Standby,Microsoft Edge</option>
-                                            <option>Fast Startup</option>
-                                            <option>BatteryLife</option>
-                                        </select>
+                                <div style="display: block" id="exJ">
+                                    <div class="form-group" >
+                                        <label class="col-sm-3 control-label">Execute Job</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control select2" name="executeJob">
+                                                <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
+                                                <option>Fast Startup,Standby,Microsoft Edge</option>
+                                                <option>Fast Startup</option>
+                                                <option>BatteryLife</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Run BaseLine</label>
+                                        <div class="col-sm-9">
+                                            <label style="margin-right: 19px">
+                                                <input type="radio" name="rb" value="yes" checked/> YES
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="rb" value="no" /> NO
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -345,7 +358,7 @@ desired effect
                     },
                     cache: false
                 },
-                // placeholder: 'Please Select',
+                placeholder: 'Please Select',
                 allowClear: true
             }
         );
@@ -438,11 +451,15 @@ desired effect
     };
 
     function iCheckInit() {
-        $('input[name=osA],input[name=item]').iCheck({
+        // $('input[name=osA],input[name=item]').iCheck({
+        //     radioClass: 'iradio_square-yellow',
+        //     increaseArea : '20%'
+        // });
+
+        $('input[type="radio"]').iCheck({
             radioClass: 'iradio_square-yellow',
             increaseArea : '20%'
         });
-
         $('input[name=item]').on('ifChecked', function () {
             var vadio = $(this).val();
 
@@ -599,11 +616,13 @@ desired effect
             var bv = $form.data('bootstrapValidator');
 
             var addMachine = testMachine.select2('data')[0].text;
-            var exJob;
+            var exJob, rb;
             if ("JumpStart" === $("input[name='item']:checked").val()){
                 exJob = excecute.select2('data')[0].text;
+                rb = $("input[name='rb']:checked").val();
             } else {
                 exJob = '';
+                rb = '';
             }
 
             var addImage = testImage.select2('data')[0].text;
@@ -624,6 +643,7 @@ desired effect
                     machineId: machineId,
                     testItem: $("input[name='item']:checked").val(),
                     exJob: exJob,
+                    rb: rb,
                     testImage: addImage,
                     osA: $("input[name='osA']:checked").val(),
                     addProduct: inputDmiInfo.find('input:eq(0)').val(),

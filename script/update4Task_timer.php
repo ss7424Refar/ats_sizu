@@ -128,7 +128,7 @@ function renameFile($newRow){
     $newFileName = ATS_TMP_TASKS_HEADER. $newRow['ShelfID']. ATS_FILE_UNDERLINE. $newRow['SwitchId'].
         ATS_FILE_UNDERLINE. $newRow['TaskID'].ATS_FILE_UNDERLINE.EXPIRED.ATS_FILE_suffix;
 
-    echo "Rename==>" . $findName. " to ". $newFileName;
+    echo "Rename==>" . $findName. " to ". $newFileName. '<br>';
     exec('mv '. $filePath. $findName. ' '. $filePath.$newFileName );
 
 }

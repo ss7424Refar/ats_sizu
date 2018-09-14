@@ -65,6 +65,7 @@ function process4InitAddTaskForm(){
     $testItem=isset($_GET['testItem']) ? $_GET['testItem'] : '';
     $testImage=isset($_GET['testImage']) ? $_GET['testImage'] : '';
     $exJob=isset($_GET['exJob']) ? $_GET['exJob'] : '';
+    $rb=isset($_GET['rb']) ? $_GET['rb'] : '';
     $osA=isset($_GET['osA']) ? $_GET['osA'] : '';
     $addProduct=isset($_GET['addProduct']) ? $_GET['addProduct'] : '';
     $addSN=isset($_GET['addSN']) ? $_GET['addSN'] : '';
@@ -75,7 +76,7 @@ function process4InitAddTaskForm(){
     $lanIp=isset($_GET['lanIp']) ? $_GET['lanIp'] : '';
     $shelf=isset($_GET['shelf']) ? $_GET['shelf'] : '';
 
-    $addFormArray = array('testMachine'=> $testMachine, 'machineId'=> $machineId, 'testItem'=> $testItem, 'testImage'=>$testImage, 'exJob'=> $exJob,  'osA'=>$osA, 'product'=>$addProduct,
+    $addFormArray = array('testMachine'=> $testMachine, 'machineId'=> $machineId, 'testItem'=> $testItem, 'testImage'=>$testImage, 'exJob'=> $exJob, 'rb'=>$rb, 'osA'=>$osA, 'product'=>$addProduct,
         'addSN'=>$addSN, 'addPN'=>$addPN, 'addOem'=>$addOem, 'addSystem'=> $addSystem, 'bios'=> $bios, 'lanIp'=> $lanIp, 'shelf'=>$shelf);
 
     return $addFormArray;
