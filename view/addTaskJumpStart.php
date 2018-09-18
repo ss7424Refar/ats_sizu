@@ -165,7 +165,7 @@ desired effect
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Run BaseLine</label>
+                                        <label class="col-sm-3 control-label">BaseLine Image</label>
                                         <div class="col-sm-9">
                                             <label style="margin-right: 19px">
                                                 <input type="radio" name="rb" value="yes" checked/> YES
