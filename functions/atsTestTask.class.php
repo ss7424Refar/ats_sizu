@@ -51,11 +51,11 @@ class atsTestTask{
                 $machineId=$data[2];
                 $appendedTestMachine=$data[1]. "(". $data[2]. ")" ;
                 if (empty(trim($query))) {
-                    $tmpArray = array('id' => $data[1], 'text' => $appendedTestMachine);
+                    $tmpArray = array('id' => $data[2], 'text' => $appendedTestMachine);
                     array_push($jsonResult, $tmpArray);
                 }else {
                     if (stristr($appendedTestMachine, $query) !== false){
-                        $tmpArray = array('id' => $data[1], 'text' => $appendedTestMachine);
+                        $tmpArray = array('id' => $data[2], 'text' => $appendedTestMachine);
                         array_push($jsonResult, $tmpArray);
                     }
 

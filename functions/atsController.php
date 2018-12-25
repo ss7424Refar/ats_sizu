@@ -56,11 +56,11 @@ if(!empty($action)){
 
 function process4InitAddTaskForm(){
 
-    $testMachine=isset($_GET['testMachine']) ? $_GET['testMachine'] : '' ;
-    if(!empty($testMachine)){
-        $testMachine = substr($testMachine, 0, stripos($testMachine, "("));
-    }
 
+//    if(!empty($testMachine)){
+//        $testMachine = substr($testMachine, 0, stripos($testMachine, "("));
+//    }
+    $testMachine=isset($_GET['testMachine']) ? $_GET['testMachine'] : '' ;
     $machineId=isset($_GET['machineId']) ? $_GET['machineId'] : '';
     $testItem=isset($_GET['testItem']) ? $_GET['testItem'] : '';
     $testImage=isset($_GET['testImage']) ? $_GET['testImage'] : '';

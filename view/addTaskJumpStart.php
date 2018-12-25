@@ -412,24 +412,24 @@ desired effect
             addFormValidatorInit();
 
             console.log(testMachine.val());
-            var testMachineVal = testMachine.val();
-            var machineId = testMachine.select2('data')[0].text;
-            if (null != machineId) {
-                machineId = machineId.replace(testMachineVal, '');
-                machineId = machineId.substring(1, machineId.length - 1);
-            }
-            console.log(machineId);
+            // var testMachineVal = testMachine.val();
+            // var machineId = testMachine.select2('data')[0].text;
+            // if (null != machineId) {
+            //     machineId = machineId.replace(testMachineVal, '');
+            //     machineId = machineId.substring(1, machineId.length - 1);
+            // }
+            // console.log(machineId);
 
             $.ajax({
                 type: 'get',
                 url: "../functions/atsController.php?do=readTestPCInfo",
-                data: {machineId: machineId},
+                data: {machineId: testMachine.val()},
                 dataType: 'json',
                 success: function(result){
                     inputDmiInfo.css('display', 'block');
                     inputDmiInfo_product.val(result[0].product);
                     inputDmiInfo_sn.val(result[0].sn);
-                    inputDmiInfo_pn.val(result[0].pn);
+                    inputDmiInfo_pn.val(result[0].pn)
                     inputDmiInfo_oem.val(result[0].oem);
                     inputDmiInfo_sys.val(result[0].sys);
                     inputDmiInfo_lanIp.html(result[0].lanIp);
@@ -626,13 +626,14 @@ desired effect
             }
 
             var addImage = testImage.select2('data')[0].text;
+
+            var machineId = testMachine.val();
+            console.log(machineId);
+
+            addMachine = addMachine.replace(machineId, '');
+            addMachine = addMachine.substring(0, addMachine.length - 2);
+
             console.log(addImage + ',' + addMachine);
-            var testMachineVal = testMachine.val();
-            var machineId = addMachine;
-            if (null != machineId) {
-                machineId = machineId.replace(testMachineVal, '');
-                machineId = machineId.substring(1, machineId.length - 1);
-            }
 
             // Use Ajax to submit form data
             $.ajax({
