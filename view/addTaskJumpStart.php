@@ -156,7 +156,7 @@ desired effect
                                     <div class="form-group" >
                                         <label class="col-sm-3 control-label">Execute Job</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control select2" name="executeJob">
+                                            <select class="form-control" name="executeJob">
                                                 <option>Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab</option>
                                                 <option>Fast Startup,Standby,Microsoft Edge</option>
                                                 <option>Fast Startup</option>
@@ -340,6 +340,14 @@ desired effect
     function  select2Init() {
         $('.select2').select2({placeholder: 'Please Select', allowClear: true});
 
+        excecute.select2();
+
+        excecute.on("select2:select",function(e) {
+
+            $('#addTaskForm').data('bootstrapValidator').destroy();
+            addFormValidatorInit();
+        });
+
         testImage.select2({
                 width: "100%",
                 ajax: {
@@ -501,14 +509,6 @@ desired effect
                         }
                     }
                 },
-                executeJob: {
-                    message: 'the executeJob is not valid',
-                    validators: {
-                        notEmpty: {
-                            message: 'The executeJob is required and can\'t be empty'
-                        }
-                    }
-                },
                 addProduct: {
                     message: 'the Product Name is not valid',
                     validators: {
@@ -628,7 +628,21 @@ desired effect
             var addImage = testImage.select2('data')[0].text;
 
             var machineId = testMachine.val();
-            console.log(machineId);
+            // console.log(machineId);
+
+            var ip = inputDmiInfo.find('p:eq(1)').text();
+
+            if (null !== ip) {
+                ipArr = ip.split('.');
+                console.log(ipArr[2]);
+                // 判断40
+                if (40 == ipArr[2]) {
+                    if ('Fast Startup,Standby,Microsoft Edge,BatteryLife,DataGrab' == exJob || 'BatteryLife' == exJob) {
+                        toastr.error('ip = 40 Execute Job cannot select Battery');
+                        return false;
+                    }
+                }
+            }
 
             addMachine = addMachine.replace(machineId, '');
             addMachine = addMachine.substring(0, addMachine.length - 2);
@@ -653,7 +667,7 @@ desired effect
                     addOem: inputDmiInfo.find('input:eq(3)').val(),
                     addSystem: inputDmiInfo.find('input:eq(4)').val(),
                     bios: inputDmiInfo.find('p:eq(0)').text(),
-                    lanIp: inputDmiInfo.find('p:eq(1)').text(),
+                    lanIp: ip,
                     shelf: inputDmiInfo.find('p:eq(2)').text()
                 },
                 success : function (result) {
