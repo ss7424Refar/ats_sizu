@@ -6,11 +6,11 @@
  * Time: 下午1:10
  */
 session_start();
-//$_SESSION['transToAts'] = 'admin';
-if (!isset($_SESSION['transToAts']) || "" == $_SERVER['HTTP_REFERER']){
-    header('Location:../../tpms/index2.php');
-    exit();
-}
+$_SESSION['transToAts'] = 'admin';
+//if (!isset($_SESSION['transToAts']) || "" == $_SERVER['HTTP_REFERER']){
+//    header('Location:../../tpms/index2.php');
+//    exit();
+//}
 //$_SESSION['user'] = 'admin';
 //if (!isset($_SESSION['user'])){
 //    header('Location:404.html');
